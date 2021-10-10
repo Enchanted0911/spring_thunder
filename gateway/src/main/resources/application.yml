@@ -1,0 +1,16 @@
+server:
+  port: 8222
+
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    gateway:
+      routes:
+      -  id: service-edu
+         url: lb://service-edu
+         predicates: Path=/service-edu/**
+
+feign:
+  sentinel:
+    enabled: true
