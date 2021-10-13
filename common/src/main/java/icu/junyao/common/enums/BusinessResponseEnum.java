@@ -35,6 +35,10 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
      */
     USER_NOT_FOUND("A0214", "用户不存在!"),
     /**
+     * 角色名或角色编码已存在!
+     */
+    ROLE_INFO_EXIST("A0216", "角色名或角色编码已存在!"),
+    /**
      * 权限名已存在
      */
     PERMISSION_NAME_ALREADY_EXISTS("A0215", "权限名已存在!");

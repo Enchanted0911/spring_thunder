@@ -2,6 +2,8 @@ package icu.junyao.acl.controller;
 
 
 import icu.junyao.acl.entity.AclRole;
+import icu.junyao.acl.req.AclRoleEditReq;
+import icu.junyao.acl.req.AclRoleReq;
 import icu.junyao.acl.req.PageRoleReq;
 import icu.junyao.acl.res.AclRoleDetailRes;
 import icu.junyao.acl.res.AclUserInfoRes;
@@ -43,5 +45,20 @@ public class AclRoleController {
     public R<AclRoleDetailRes> roleDetails(@PathVariable String id) {
         return R.data(aclRoleService.roleDetails(id));
     }
+
+    @ApiOperation("新增角色")
+    @PostMapping
+    public R<Void> saveRole(@RequestBody @Valid AclRoleReq aclRoleReq) {
+        aclRoleService.saveRole(aclRoleReq);
+        return R.success();
+    }
+
+    @ApiOperation("修改角色")
+    @PutMapping
+    public R<Void> updateRole(@RequestBody @Valid AclRoleEditReq aclRoleEditReq) {
+        aclRoleService.updateRole(aclRoleEditReq);
+        return R.success();
+    }
+
 }
 
