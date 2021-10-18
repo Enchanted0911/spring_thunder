@@ -57,4 +57,18 @@ public interface AclRoleService extends IService<AclRole> {
      * @param aclRoleEditReq 修改的角色
      */
     void updateRole(AclRoleEditReq aclRoleEditReq);
+
+    /**
+     * 删除一个角色, 删除的时候不能有用户正在使用该角色
+     *
+     * @param id 角色id
+     */
+    void removeRole(String id);
+
+    /**
+     * 批量删除角色, 删除操作同删除单个角色
+     *
+     * @param idList 待删除角色id列表
+     */
+    void removeBatchRole(List<String> idList);
 }

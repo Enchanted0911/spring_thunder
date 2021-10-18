@@ -37,11 +37,15 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 角色名或角色编码已存在!
      */
-    ROLE_INFO_EXIST("A0216", "角色名或角色编码已存在!"),
+    ROLE_INFO_EXIST("A0215", "角色名或角色编码已存在!"),
     /**
      * 权限名已存在
      */
-    PERMISSION_NAME_ALREADY_EXISTS("A0215", "权限名已存在!");
+    PERMISSION_NAME_ALREADY_EXISTS("A0216", "权限名已存在!"),
+    /**
+     * 该角色正在被使用
+     */
+    ROLE_BRING_USED("A0217", "该角色正在被使用!");
 
     private final String code;
 

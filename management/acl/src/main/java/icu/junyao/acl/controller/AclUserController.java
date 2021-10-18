@@ -1,20 +1,23 @@
 package icu.junyao.acl.controller;
 
 
+import icu.junyao.acl.entity.AclUser;
+import icu.junyao.acl.req.AclUserEditReq;
 import icu.junyao.acl.req.AclUserReq;
+import icu.junyao.acl.req.PageUserReq;
+import icu.junyao.acl.res.AclUserDetailRes;
 import icu.junyao.acl.res.AclUserInfoRes;
 import icu.junyao.acl.service.AclUserService;
+import icu.junyao.common.entity.PageResult;
 import icu.junyao.common.entity.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -33,11 +36,44 @@ public class AclUserController {
     private final AclUserService aclUserService;
     private final PasswordEncoder passwordEncoder;
 
+    @ApiOperation("获取单个用户信息")
+    @GetMapping("{id}")
+    public R<AclUserDetailRes> userDetails(@PathVariable String id) {
+        return R.data(aclUserService.userDetails(id));
+    }
+
     @ApiOperation("新增管理用户")
     @PostMapping
-    public R<AclUserInfoRes> info(@RequestBody @Valid AclUserReq aclUserReq) {
+    public R<Void> info(@RequestBody @Valid AclUserReq aclUserReq) {
         aclUserReq.setPassword(passwordEncoder.encode(aclUserReq.getPassword()));
         aclUserService.saveAclUser(aclUserReq);
+        return R.success();
+    }
+
+    @ApiOperation("获取管理用户分页列表")
+    @GetMapping("page")
+    public R<PageResult<AclUser>> pageUser(@Valid PageUserReq pageUserReq) {
+        return R.data(aclUserService.pageUser(pageUserReq));
+    }
+
+    @ApiOperation("修改用户")
+    @PutMapping
+    public R<Void> updateUser(@RequestBody @Valid AclUserEditReq aclUserEditReq) {
+        aclUserService.updateUser(aclUserEditReq);
+        return R.success();
+    }
+
+    @ApiOperation("删除单个管理用户")
+    @DeleteMapping("{id}")
+    public R<Void> removeRole(@PathVariable String id) {
+        aclUserService.removeUser(id);
+        return R.success();
+    }
+
+    @ApiOperation("删除多个管理用户")
+    @DeleteMapping
+    public R<Void> removeBatchRole(@RequestBody List<String> idList) {
+        aclUserService.removeBatchUser(idList);
         return R.success();
     }
 }

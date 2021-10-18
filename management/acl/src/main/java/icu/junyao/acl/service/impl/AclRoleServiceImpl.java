@@ -7,7 +7,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import icu.junyao.acl.entity.AclRole;
+import icu.junyao.acl.entity.AclRolePermission;
+import icu.junyao.acl.entity.AclUserRole;
 import icu.junyao.acl.mapper.AclRoleMapper;
+import icu.junyao.acl.mapper.AclRolePermissionMapper;
+import icu.junyao.acl.mapper.AclUserRoleMapper;
 import icu.junyao.acl.req.AclRoleEditReq;
 import icu.junyao.acl.req.AclRoleReq;
 import icu.junyao.acl.req.PageRoleReq;
@@ -17,6 +21,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.common.entity.PageResult;
 import icu.junyao.common.enums.BusinessResponseEnum;
 import icu.junyao.common.exception.BusinessException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +38,11 @@ import java.util.stream.Collectors;
  * @since 2021-10-04
  */
 @Service
+@RequiredArgsConstructor
 public class AclRoleServiceImpl extends ServiceImpl<AclRoleMapper, AclRole> implements AclRoleService {
+
+    private final AclUserRoleMapper aclUserRoleMapper;
+    private final AclRolePermissionMapper aclRolePermissionMapper;
 
     @Override
     public List<String> gainRoleNameListByRoleIdList(List<String> roleIdList) {
@@ -99,5 +108,43 @@ public class AclRoleServiceImpl extends ServiceImpl<AclRoleMapper, AclRole> impl
         AclRole aclRole = new AclRole();
         BeanUtils.copyProperties(aclRoleEditReq, aclRole);
         super.updateById(aclRole);
+    }
+
+    @Override
+    public void removeRole(String id) {
+        // 查找是否有用户在使用该角色
+        LambdaQueryWrapper<AclUserRole> aclUserRoleLambdaQueryWrapper = Wrappers.lambdaQuery();
+        aclUserRoleLambdaQueryWrapper.eq(AclUserRole::getRoleId, id);
+        List<AclUserRole> aclUserRoleList = aclUserRoleMapper.selectList(aclUserRoleLambdaQueryWrapper);
+        if (CollUtil.isNotEmpty(aclUserRoleList)) {
+            throw BusinessResponseEnum.ROLE_BRING_USED.newException();
+        }
+
+        // 删除角色关联的权限
+        LambdaQueryWrapper<AclRolePermission> aclRolePermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
+        aclRolePermissionLambdaQueryWrapper.eq(AclRolePermission::getRoleId, id);
+        aclRolePermissionMapper.delete(aclRolePermissionLambdaQueryWrapper);
+
+        // 删除角色
+        super.removeById(id);
+    }
+
+    @Override
+    public void removeBatchRole(List<String> idList) {
+        // 查找是否有用户在使用该角色
+        LambdaQueryWrapper<AclUserRole> aclUserRoleLambdaQueryWrapper = Wrappers.lambdaQuery();
+        aclUserRoleLambdaQueryWrapper.in(AclUserRole::getRoleId, idList);
+        List<AclUserRole> aclUserRoleList = aclUserRoleMapper.selectList(aclUserRoleLambdaQueryWrapper);
+        if (CollUtil.isNotEmpty(aclUserRoleList)) {
+            throw BusinessResponseEnum.ROLE_BRING_USED.newException();
+        }
+
+        // 删除角色关联的权限
+        LambdaQueryWrapper<AclRolePermission> aclRolePermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
+        aclRolePermissionLambdaQueryWrapper.in(AclRolePermission::getRoleId, idList);
+        aclRolePermissionMapper.delete(aclRolePermissionLambdaQueryWrapper);
+
+        // 删除角色
+        super.removeByIds(idList);
     }
 }

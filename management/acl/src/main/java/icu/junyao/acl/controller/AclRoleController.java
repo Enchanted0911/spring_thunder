@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -57,6 +58,20 @@ public class AclRoleController {
     @PutMapping
     public R<Void> updateRole(@RequestBody @Valid AclRoleEditReq aclRoleEditReq) {
         aclRoleService.updateRole(aclRoleEditReq);
+        return R.success();
+    }
+
+    @ApiOperation("删除单个角色")
+    @DeleteMapping("{id}")
+    public R<Void> removeRole(@PathVariable String id) {
+        aclRoleService.removeRole(id);
+        return R.success();
+    }
+
+    @ApiOperation("删除多个角色")
+    @DeleteMapping
+    public R<Void> removeBatchRole(@RequestBody List<String> idList) {
+        aclRoleService.removeBatchRole(idList);
         return R.success();
     }
 
