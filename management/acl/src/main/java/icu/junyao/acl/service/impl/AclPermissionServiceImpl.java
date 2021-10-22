@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.acl.entity.AclPermission;
@@ -12,6 +11,7 @@ import icu.junyao.acl.entity.AclRolePermission;
 import icu.junyao.acl.mapper.AclPermissionMapper;
 import icu.junyao.acl.req.AclPermissionAddReq;
 import icu.junyao.acl.req.AclPermissionUpdateReq;
+import icu.junyao.acl.res.AclPermissionRes;
 import icu.junyao.acl.service.AclPermissionService;
 import icu.junyao.acl.service.AclRolePermissionService;
 import icu.junyao.acl.service.AclUserRoleService;
@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -47,6 +46,11 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
         // 获取用户的权限id
         List<String> permissionIdList = gainPermissionIdList(aclUserId);
 
+        // 没有权限则返回空集合
+        if (CollUtil.isEmpty(permissionIdList)) {
+            return new ArrayList<>();
+        }
+
         // 权限id集合转换成权限值集合
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper.in(AclPermission::getId, permissionIdList);
@@ -57,14 +61,20 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
     }
 
     @Override
-    public List<AclPermission> gainTreePermissionList() {
+    public List<AclPermissionRes> gainTreePermissionList() {
         List<String> permissionIdList = gainPermissionIdList(SecurityUtils.getUserId());
 
         // 权限id集合转换成权限集合
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper.in(AclPermission::getId, permissionIdList);
-
-        return PermissionUtils.buildPermission(super.list(aclPermissionLambdaQueryWrapper));
+        List<AclPermission> aclPermissionList = super.list(aclPermissionLambdaQueryWrapper);
+        List<AclPermissionRes> aclPermissionResList = new ArrayList<>();
+        aclPermissionList.forEach(p -> {
+            AclPermissionRes aclPermissionRes = new AclPermissionRes();
+            BeanUtils.copyProperties(p, aclPermissionRes);
+            aclPermissionResList.add(aclPermissionRes);
+        });
+        return PermissionUtils.buildPermission(aclPermissionResList);
 
     }
 
@@ -106,7 +116,7 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
 
     @Override
     public List<JSONObject> gainMenuList() {
-        List<AclPermission> aclPermissionList = this.gainTreePermissionList();
+        List<AclPermissionRes> aclPermissionList = this.gainTreePermissionList();
 
         return PermissionUtils.buildMenu(aclPermissionList);
     }

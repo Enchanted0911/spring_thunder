@@ -1,7 +1,6 @@
 package icu.junyao.acl.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.acl.entity.AclPermission;
@@ -9,9 +8,11 @@ import icu.junyao.acl.entity.AclRolePermission;
 import icu.junyao.acl.mapper.AclPermissionMapper;
 import icu.junyao.acl.mapper.AclRolePermissionMapper;
 import icu.junyao.acl.req.AclRolePermissionAddReq;
+import icu.junyao.acl.res.AclPermissionRes;
 import icu.junyao.acl.service.AclRolePermissionService;
 import icu.junyao.acl.utils.PermissionUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,22 +52,27 @@ public class AclRolePermissionServiceImpl extends ServiceImpl<AclRolePermissionM
     }
 
     @Override
-    public List<AclPermission> selectRolePermissionRelationShip(String roleId) {
+    public List<AclPermissionRes> selectRolePermissionRelationShip(String roleId) {
         List<AclPermission> allPermissionList = aclPermissionMapper.selectList(Wrappers.lambdaQuery());
 
         //根据角色id获取角色权限
         List<AclRolePermission> rolePermissionList = super.list(Wrappers.lambdaQuery(AclRolePermission.class)
                 .eq(AclRolePermission::getRoleId, roleId));
-        //转换给角色id与角色权限对应Map对象
+
+        // 属性转移 标记角色的权限
+        List<AclPermissionRes> aclPermissionResList = new ArrayList<>();
         allPermissionList.forEach(i -> {
+            AclPermissionRes aclPermissionRes = new AclPermissionRes();
+            BeanUtils.copyProperties(i, aclPermissionRes);
             rolePermissionList.forEach(r -> {
                 if (r.getPermissionId().equals(i.getId())) {
-                    i.setSelected(true);
+                    aclPermissionRes.setSelected(true);
                 }
             });
+            aclPermissionResList.add(aclPermissionRes);
         });
 
-        return PermissionUtils.buildPermission(allPermissionList);
+        return PermissionUtils.buildPermission(aclPermissionResList);
 
     }
 }

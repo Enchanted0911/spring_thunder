@@ -3,6 +3,7 @@ package icu.junyao.acl.utils;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import icu.junyao.acl.entity.AclPermission;
+import icu.junyao.acl.res.AclPermissionRes;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -21,12 +22,12 @@ public class PermissionUtils {
      * @param permissionList 待构建的权限列表
      * @return 构建好的当前权限节点
      */
-    private static AclPermission selectChildren(AclPermission permissionNode, List<AclPermission> permissionList) {
+    private static AclPermissionRes selectChildren(AclPermissionRes permissionNode, List<AclPermissionRes> permissionList) {
         //1 因为向一层菜单里面放二层菜单，二层里面还要放三层，把对象初始化
         permissionNode.setChildren(new ArrayList<>());
 
         //2 遍历所有菜单list集合，进行判断比较，比较id和pid值是否相同
-        for (AclPermission it : permissionList) {
+        for (AclPermissionRes it : permissionList) {
             //判断 id和pid值是否相同
             if (permissionNode.getId().equals(it.getPid())) {
                 //把父菜单的level值+1
@@ -45,11 +46,11 @@ public class PermissionUtils {
      * @param permissionList 待构建的权限集合
      * @return 构建好的权限集合
      */
-    public static List<AclPermission> buildPermission(List<AclPermission> permissionList) {
+    public static List<AclPermissionRes> buildPermission(List<AclPermissionRes> permissionList) {
         //创建list集合，用于数据最终封装
-        List<AclPermission> finalNode = new ArrayList<>();
+        List<AclPermissionRes> finalNode = new ArrayList<>();
         //把所有菜单list集合遍历，得到顶层菜单 pid=0菜单，设置level是1
-        for (AclPermission permissionNode : permissionList) {
+        for (AclPermissionRes permissionNode : permissionList) {
             //得到顶层菜单 pid=0菜单
             if ("0".equals(permissionNode.getPid())) {
                 //设置顶层菜单的level是1
@@ -66,13 +67,13 @@ public class PermissionUtils {
      * @param treeNodes 已构建好的权限树
      * @return 菜单列表
      */
-    public static List<JSONObject> buildMenu(List<AclPermission> treeNodes) {
+    public static List<JSONObject> buildMenu(List<AclPermissionRes> treeNodes) {
         List<JSONObject> menus = new ArrayList<>();
         if (treeNodes.size() == 1) {
-            AclPermission topNode = treeNodes.get(0);
+            AclPermissionRes topNode = treeNodes.get(0);
             //左侧一级菜单
-            List<AclPermission> oneMenuList = topNode.getChildren();
-            for (AclPermission one : oneMenuList) {
+            List<AclPermissionRes> oneMenuList = topNode.getChildren();
+            for (AclPermissionRes one : oneMenuList) {
                 JSONObject oneMenu = new JSONObject();
                 oneMenu.put("path", one.getPath());
                 oneMenu.put("component", one.getComponent());
@@ -86,8 +87,8 @@ public class PermissionUtils {
                 oneMenu.put("meta", oneMeta);
 
                 List<JSONObject> children = new ArrayList<>();
-                List<AclPermission> twoMenuList = one.getChildren();
-                for (AclPermission two : twoMenuList) {
+                List<AclPermissionRes> twoMenuList = one.getChildren();
+                for (AclPermissionRes two : twoMenuList) {
                     JSONObject twoMenu = new JSONObject();
                     twoMenu.put("path", two.getPath());
                     twoMenu.put("component", two.getComponent());
@@ -100,8 +101,8 @@ public class PermissionUtils {
 
                     children.add(twoMenu);
 
-                    List<AclPermission> threeMenuList = two.getChildren();
-                    for (AclPermission three : threeMenuList) {
+                    List<AclPermissionRes> threeMenuList = two.getChildren();
+                    for (AclPermissionRes three : threeMenuList) {
                         if (StrUtil.isEmpty(three.getPath())) {
                             continue;
                         }

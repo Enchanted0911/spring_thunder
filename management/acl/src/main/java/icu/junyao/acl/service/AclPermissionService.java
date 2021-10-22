@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import icu.junyao.acl.entity.AclPermission;
 import icu.junyao.acl.req.AclPermissionAddReq;
 import icu.junyao.acl.req.AclPermissionUpdateReq;
+import icu.junyao.acl.res.AclPermissionRes;
 
 import java.util.List;
 
@@ -29,9 +30,9 @@ public interface AclPermissionService extends IService<AclPermission> {
     /**
      * 获取树形菜单列表
      *
-     * @return {@link AclPermission}
+     * @return {@link AclPermissionRes}
      */
-    List<AclPermission> gainTreePermissionList();
+    List<AclPermissionRes> gainTreePermissionList();
 
     /**
      * 递归删除菜单

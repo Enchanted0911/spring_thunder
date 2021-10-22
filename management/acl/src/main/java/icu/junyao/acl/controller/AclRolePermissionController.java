@@ -1,8 +1,8 @@
 package icu.junyao.acl.controller;
 
 
-import icu.junyao.acl.entity.AclPermission;
 import icu.junyao.acl.req.AclRolePermissionAddReq;
+import icu.junyao.acl.res.AclPermissionRes;
 import icu.junyao.acl.service.AclRolePermissionService;
 import icu.junyao.common.entity.R;
 import io.swagger.annotations.Api;
@@ -38,8 +38,8 @@ public class AclRolePermissionController {
 
     @ApiOperation(value = "获取角色的权限")
     @GetMapping("{roleId}")
-    public R<List<AclPermission>> selectRolePermissionRelationShip(@PathVariable String roleId) {
-        List<AclPermission> aclPermissionList = aclRolePermissionService.selectRolePermissionRelationShip(roleId);
+    public R<List<AclPermissionRes>> selectRolePermissionRelationShip(@PathVariable String roleId) {
+        List<AclPermissionRes> aclPermissionList = aclRolePermissionService.selectRolePermissionRelationShip(roleId);
         return R.data(aclPermissionList);
     }
 }

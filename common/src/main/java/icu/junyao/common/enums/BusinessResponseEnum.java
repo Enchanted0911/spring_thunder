@@ -14,6 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BusinessResponseEnum implements BusinessExceptionAssert {
 
+
     /**
      * 请输入有效的用户名以及密码
      */

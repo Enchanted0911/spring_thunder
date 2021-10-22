@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.acl.entity.AclRole;
 import icu.junyao.acl.entity.AclRolePermission;
 import icu.junyao.acl.entity.AclUserRole;
@@ -17,10 +18,8 @@ import icu.junyao.acl.req.AclRoleReq;
 import icu.junyao.acl.req.PageRoleReq;
 import icu.junyao.acl.res.AclRoleDetailRes;
 import icu.junyao.acl.service.AclRoleService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.common.entity.PageResult;
 import icu.junyao.common.enums.BusinessResponseEnum;
-import icu.junyao.common.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -96,9 +95,9 @@ public class AclRoleServiceImpl extends ServiceImpl<AclRoleMapper, AclRole> impl
     public void updateRole(AclRoleEditReq aclRoleEditReq) {
         // 去重, 角色名和角色编码不能重复, 不包括自身
         LambdaQueryWrapper<AclRole> aclRoleLambdaQueryWrapper = Wrappers.lambdaQuery();
-        aclRoleLambdaQueryWrapper.eq(AclRole::getName, aclRoleEditReq.getName())
-                .or().eq(AclRole::getCode, aclRoleEditReq.getCode());
-        aclRoleLambdaQueryWrapper.and(wrapper -> wrapper.ne(AclRole::getId, aclRoleEditReq.getId()));
+        aclRoleLambdaQueryWrapper.ne(AclRole::getId, aclRoleEditReq.getId());
+        aclRoleLambdaQueryWrapper.and(wrapper -> wrapper.eq(AclRole::getName, aclRoleEditReq.getName())
+                .or().eq(AclRole::getCode, aclRoleEditReq.getCode()));
 
         List<AclRole> aclRoleTmpList = super.list(aclRoleLambdaQueryWrapper);
         if (CollUtil.isNotEmpty(aclRoleTmpList)) {

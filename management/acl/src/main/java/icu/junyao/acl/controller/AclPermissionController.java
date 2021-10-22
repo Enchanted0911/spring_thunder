@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import icu.junyao.acl.entity.AclPermission;
 import icu.junyao.acl.req.AclPermissionAddReq;
 import icu.junyao.acl.req.AclPermissionUpdateReq;
+import icu.junyao.acl.res.AclPermissionRes;
 import icu.junyao.acl.service.AclPermissionService;
 import icu.junyao.common.entity.R;
 import io.swagger.annotations.Api;
@@ -32,8 +33,8 @@ public class AclPermissionController {
 
     @ApiOperation("获取当前用户树形权限")
     @GetMapping
-    public R<List<AclPermission>> gainPermissionInfo() {
-        List<AclPermission> permissionList = aclPermissionService.gainTreePermissionList();
+    public R<List<AclPermissionRes>> gainPermissionInfo() {
+        List<AclPermissionRes> permissionList = aclPermissionService.gainTreePermissionList();
         return R.data(permissionList);
     }
 
