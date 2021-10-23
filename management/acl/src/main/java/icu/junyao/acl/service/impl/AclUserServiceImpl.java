@@ -70,7 +70,8 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
     public void updateUser(AclUserEditReq aclUserEditReq) {
         // 去重判断
         LambdaQueryWrapper<AclUser> aclUserLambdaQueryWrapper = Wrappers.lambdaQuery();
-        aclUserLambdaQueryWrapper.eq(AclUser::getUsername, aclUserEditReq.getUsername());
+        aclUserLambdaQueryWrapper.eq(AclUser::getUsername, aclUserEditReq.getUsername())
+                .ne(AclUser::getId, aclUserEditReq.getId());
         AclUser existUser = super.getOne(aclUserLambdaQueryWrapper);
         if (existUser != null) {
             throw BusinessResponseEnum.USER_NAME_REPEAT.newException();

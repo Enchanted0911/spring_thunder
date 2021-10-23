@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>classroom</module>
+        <module>extracurricular</module>
     </modules>
 
     <dependencies>

@@ -1,5 +1,7 @@
 package icu.junyao.acl.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -68,26 +70,27 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper.in(AclPermission::getId, permissionIdList);
         List<AclPermission> aclPermissionList = super.list(aclPermissionLambdaQueryWrapper);
-        List<AclPermissionRes> aclPermissionResList = new ArrayList<>();
-        aclPermissionList.forEach(p -> {
-            AclPermissionRes aclPermissionRes = new AclPermissionRes();
-            BeanUtils.copyProperties(p, aclPermissionRes);
-            aclPermissionResList.add(aclPermissionRes);
-        });
-        return PermissionUtils.buildPermission(aclPermissionResList);
+        List<AclPermissionRes> aclPermissionResList = BeanUtil.copyToList(aclPermissionList, AclPermissionRes.class, CopyOptions.create());
 
+        return PermissionUtils.buildPermission(aclPermissionResList);
     }
 
     @Override
     public void deleteMenu(String id) {
         List<String> idList = new ArrayList<>();
+
+        // 子菜单加入删除列表
         selectPermissionChildById(id, idList);
+
+        // 加入自身
         idList.add(id);
+
         super.removeByIds(idList);
     }
 
     @Override
     public void saveMenu(AclPermissionAddReq aclPermissionAddReq) {
+        // 去重, 权限名不能相同
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper.eq(AclPermission::getName, aclPermissionAddReq.getName());
         AclPermission one = super.getOne(aclPermissionLambdaQueryWrapper);
@@ -102,8 +105,11 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
 
     @Override
     public void updateMenu(AclPermissionUpdateReq aclPermissionUpdateReq) {
+        // 去重, 权限名不能相同, 排除自身
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
-        aclPermissionLambdaQueryWrapper.eq(AclPermission::getName, aclPermissionUpdateReq.getName());
+        aclPermissionLambdaQueryWrapper
+                .eq(AclPermission::getName, aclPermissionUpdateReq.getName())
+                .ne(AclPermission::getId, aclPermissionUpdateReq.getId());
         AclPermission one = super.getOne(aclPermissionLambdaQueryWrapper);
         if (one != null) {
             throw BusinessResponseEnum.PERMISSION_NAME_ALREADY_EXISTS.newException();

@@ -46,7 +46,19 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 该角色正在被使用
      */
-    ROLE_BRING_USED("A0217", "该角色正在被使用!");
+    ROLE_BRING_USED("A0217", "该角色正在被使用!"),
+    /**
+     * banner标题已存在
+     */
+    BANNER_TITLE_USED("A0218", "banner标题已存在!"),
+    /**
+     * banner不存在
+     */
+    BANNER_NOT_EXIST("A0219", "banner不存在!"),
+    /**
+     * 登录信息过期
+     */
+    LOGIN_EXPIRED("A0220", "登录信息过期, 请重新登录!");
 
     private final String code;
 
