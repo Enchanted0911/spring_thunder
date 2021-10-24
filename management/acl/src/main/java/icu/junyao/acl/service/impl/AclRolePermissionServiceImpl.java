@@ -7,7 +7,7 @@ import icu.junyao.acl.entity.AclPermission;
 import icu.junyao.acl.entity.AclRolePermission;
 import icu.junyao.acl.mapper.AclPermissionMapper;
 import icu.junyao.acl.mapper.AclRolePermissionMapper;
-import icu.junyao.acl.req.AclRolePermissionAddReq;
+import icu.junyao.acl.req.AclRolePermissionReq;
 import icu.junyao.acl.res.AclPermissionRes;
 import icu.junyao.acl.service.AclRolePermissionService;
 import icu.junyao.acl.utils.PermissionUtils;
@@ -35,7 +35,7 @@ public class AclRolePermissionServiceImpl extends ServiceImpl<AclRolePermissionM
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveRolePermissionRelationShip(AclRolePermissionAddReq aclRolePermissionAddReq) {
+    public void saveRolePermissionRelationShip(AclRolePermissionReq aclRolePermissionAddReq) {
         // 新建关系前先删除原来的关系
         LambdaQueryWrapper<AclRolePermission> aclRolePermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclRolePermissionLambdaQueryWrapper.eq(AclRolePermission::getRoleId, aclRolePermissionAddReq.getRoleId());

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import icu.junyao.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,16 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("t_course_subsection")
 @ApiModel(value="CourseSubsection对象", description="课程视频")
-public class CourseSubsection implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "视频ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
-
-    @ApiModelProperty(value = "课程ID")
-    private String courseId;
+public class CourseSubsection extends BaseEntity {
 
     @ApiModelProperty(value = "章节ID")
     private String chapterId;
@@ -62,22 +55,6 @@ public class CourseSubsection implements Serializable {
 
     @ApiModelProperty(value = "视频源文件大小（字节）")
     private Long size;
-
-    @ApiModelProperty(value = "乐观锁")
-    private Long version;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createdTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime modifiedTime;
-
-    private String createdBy;
-
-    private String modifiedBy;
-
-    @ApiModelProperty(value = "逻辑删除 0 未删除 1 删除")
-    private Boolean isDeleted;
 
 
 }

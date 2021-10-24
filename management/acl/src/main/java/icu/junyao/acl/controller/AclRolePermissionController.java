@@ -1,7 +1,7 @@
 package icu.junyao.acl.controller;
 
 
-import icu.junyao.acl.req.AclRolePermissionAddReq;
+import icu.junyao.acl.req.AclRolePermissionReq;
 import icu.junyao.acl.res.AclPermissionRes;
 import icu.junyao.acl.service.AclRolePermissionService;
 import icu.junyao.common.entity.R;
@@ -31,7 +31,7 @@ public class AclRolePermissionController {
 
     @ApiOperation(value = "给角色分配权限")
     @PostMapping
-    public R<Void> saveRolePermissionRelationShip(@RequestBody @Valid AclRolePermissionAddReq aclRolePermissionAddReq) {
+    public R<Void> saveRolePermissionRelationShip(@RequestBody @Valid AclRolePermissionReq aclRolePermissionAddReq) {
         aclRolePermissionService.saveRolePermissionRelationShip(aclRolePermissionAddReq);
         return R.success();
     }

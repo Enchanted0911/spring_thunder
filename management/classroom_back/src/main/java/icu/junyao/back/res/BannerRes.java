@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @author johnson
- * @date 2021-10-04
+ * @date 2021-10-24
  */
 @Data
 public class BannerRes {

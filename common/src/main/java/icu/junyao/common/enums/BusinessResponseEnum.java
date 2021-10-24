@@ -58,7 +58,11 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 登录信息过期
      */
-    LOGIN_EXPIRED("A0220", "登录信息过期, 请重新登录!");
+    LOGIN_EXPIRED("A0220", "登录信息过期, 请重新登录!"),
+    /**
+     * 章节标题已存在
+     */
+    CHAPTER_EXIST("A0221", "章节标题已存在!");
 
     private final String code;
 

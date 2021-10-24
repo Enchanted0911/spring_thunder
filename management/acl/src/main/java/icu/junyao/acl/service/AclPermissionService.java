@@ -3,8 +3,8 @@ package icu.junyao.acl.service;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import icu.junyao.acl.entity.AclPermission;
-import icu.junyao.acl.req.AclPermissionAddReq;
-import icu.junyao.acl.req.AclPermissionUpdateReq;
+import icu.junyao.acl.req.AclPermissionReq;
+import icu.junyao.acl.req.AclPermissionEditReq;
 import icu.junyao.acl.res.AclPermissionRes;
 
 import java.util.List;
@@ -44,16 +44,16 @@ public interface AclPermissionService extends IService<AclPermission> {
     /**
      * 新增权限
      *
-     * @param aclPermissionAddReq {@link AclPermissionAddReq}
+     * @param aclPermissionAddReq {@link AclPermissionReq}
      */
-    void saveMenu(AclPermissionAddReq aclPermissionAddReq);
+    void saveMenu(AclPermissionReq aclPermissionAddReq);
 
     /**
      * 修改权限
      *
-     * @param aclPermissionUpdateReq {@link AclPermissionAddReq}
+     * @param aclPermissionUpdateReq {@link AclPermissionReq}
      */
-    void updateMenu(AclPermissionUpdateReq aclPermissionUpdateReq);
+    void updateMenu(AclPermissionEditReq aclPermissionUpdateReq);
 
     /**
      * 获取当前用户菜单列表

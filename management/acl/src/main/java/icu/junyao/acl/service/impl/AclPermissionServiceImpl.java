@@ -11,8 +11,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.acl.entity.AclPermission;
 import icu.junyao.acl.entity.AclRolePermission;
 import icu.junyao.acl.mapper.AclPermissionMapper;
-import icu.junyao.acl.req.AclPermissionAddReq;
-import icu.junyao.acl.req.AclPermissionUpdateReq;
+import icu.junyao.acl.req.AclPermissionReq;
+import icu.junyao.acl.req.AclPermissionEditReq;
 import icu.junyao.acl.res.AclPermissionRes;
 import icu.junyao.acl.service.AclPermissionService;
 import icu.junyao.acl.service.AclRolePermissionService;
@@ -89,7 +89,7 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
     }
 
     @Override
-    public void saveMenu(AclPermissionAddReq aclPermissionAddReq) {
+    public void saveMenu(AclPermissionReq aclPermissionAddReq) {
         // 去重, 权限名不能相同
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper.eq(AclPermission::getName, aclPermissionAddReq.getName());
@@ -104,7 +104,7 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
     }
 
     @Override
-    public void updateMenu(AclPermissionUpdateReq aclPermissionUpdateReq) {
+    public void updateMenu(AclPermissionEditReq aclPermissionUpdateReq) {
         // 去重, 权限名不能相同, 排除自身
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper

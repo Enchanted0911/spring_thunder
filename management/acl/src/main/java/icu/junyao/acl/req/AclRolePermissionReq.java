@@ -10,7 +10,7 @@ import java.util.List;
  * @date 2021-10-03
  */
 @Data
-public class AclRolePermissionAddReq {
+public class AclRolePermissionReq {
     @NotEmpty(message = "角色不能为空!")
     private String roleId;
 

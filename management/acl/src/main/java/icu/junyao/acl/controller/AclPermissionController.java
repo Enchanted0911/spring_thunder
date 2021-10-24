@@ -2,9 +2,8 @@ package icu.junyao.acl.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import icu.junyao.acl.entity.AclPermission;
-import icu.junyao.acl.req.AclPermissionAddReq;
-import icu.junyao.acl.req.AclPermissionUpdateReq;
+import icu.junyao.acl.req.AclPermissionReq;
+import icu.junyao.acl.req.AclPermissionEditReq;
 import icu.junyao.acl.res.AclPermissionRes;
 import icu.junyao.acl.service.AclPermissionService;
 import icu.junyao.common.entity.R;
@@ -47,14 +46,14 @@ public class AclPermissionController {
 
     @ApiOperation("新增菜单")
     @PostMapping
-    public R<Void> saveMenu(@RequestBody @Valid AclPermissionAddReq aclPermissionAddReq) {
+    public R<Void> saveMenu(@RequestBody @Valid AclPermissionReq aclPermissionAddReq) {
         aclPermissionService.saveMenu(aclPermissionAddReq);
         return R.success();
     }
 
     @ApiOperation("修改菜单")
     @PutMapping
-    public R<Void> updateMenu(@RequestBody @Valid AclPermissionUpdateReq aclPermissionUpdateReq) {
+    public R<Void> updateMenu(@RequestBody @Valid AclPermissionEditReq aclPermissionUpdateReq) {
         aclPermissionService.updateMenu(aclPermissionUpdateReq);
         return R.success();
     }

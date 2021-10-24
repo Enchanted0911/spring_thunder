@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class AclPermissionUpdateReq extends AclPermissionAddReq {
+public class AclPermissionEditReq extends AclPermissionReq {
     @NotEmpty(message = "id不能为空!")
     private String id;
 }

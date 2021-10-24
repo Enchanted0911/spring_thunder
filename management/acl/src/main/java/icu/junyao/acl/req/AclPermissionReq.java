@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * @date 2021-10-03
  */
 @Data
-public class AclPermissionAddReq {
+public class AclPermissionReq {
     @ApiModelProperty(value = "父级id")
     @NotEmpty(message = "未指定父级权限!")
     private String pid;

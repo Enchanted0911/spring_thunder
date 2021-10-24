@@ -1,9 +1,8 @@
 package icu.junyao.acl.service;
 
-import icu.junyao.acl.entity.AclPermission;
 import icu.junyao.acl.entity.AclRolePermission;
 import com.baomidou.mybatisplus.extension.service.IService;
-import icu.junyao.acl.req.AclRolePermissionAddReq;
+import icu.junyao.acl.req.AclRolePermissionReq;
 import icu.junyao.acl.res.AclPermissionRes;
 
 import java.util.List;
@@ -20,9 +19,9 @@ public interface AclRolePermissionService extends IService<AclRolePermission> {
 
     /**
      * 为角色分配权限
-     * @param aclRolePermissionAddReq {@link AclRolePermissionAddReq}
+     * @param aclRolePermissionAddReq {@link AclRolePermissionReq}
      */
-    void saveRolePermissionRelationShip(AclRolePermissionAddReq aclRolePermissionAddReq);
+    void saveRolePermissionRelationShip(AclRolePermissionReq aclRolePermissionAddReq);
 
     /**
      * 通过角色获取权限
