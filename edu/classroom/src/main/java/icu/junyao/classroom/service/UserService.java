@@ -2,6 +2,7 @@ package icu.junyao.classroom.service;
 
 import icu.junyao.classroom.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import icu.junyao.classroom.req.UserLoginReq;
 
 /**
  * <p>
@@ -12,5 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-10-23
  */
 public interface UserService extends IService<User> {
-
+    /**
+     * 用户登录
+     * @param userLoginReq {@link UserLoginReq}
+     * @return 登录后的token
+     */
+    String login(UserLoginReq userLoginReq);
 }

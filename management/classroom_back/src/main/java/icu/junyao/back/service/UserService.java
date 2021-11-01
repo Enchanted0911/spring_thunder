@@ -1,7 +1,7 @@
 package icu.junyao.back.service;
 
-import icu.junyao.back.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import icu.junyao.back.entity.User;
 
 /**
  * <p>
@@ -12,5 +12,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-10-23
  */
 public interface UserService extends IService<User> {
-
 }

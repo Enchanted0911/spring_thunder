@@ -16,9 +16,9 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
 
 
     /**
-     * 请输入有效的用户名以及密码
+     * 用户名或密码错误
      */
-    PWD_ERROR("A0210", "请输入有效的用户名以及密码。"),
+    PWD_ERROR("A0210", "用户名或密码错误!"),
     /**
      * 新密码不能和旧密码相同
      */
@@ -62,7 +62,15 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 章节标题已存在
      */
-    CHAPTER_EXIST("A0221", "章节标题已存在!");
+    CHAPTER_EXIST("A0221", "章节标题已存在!"),
+    /**
+     * 账号不存在
+     */
+    ACCOUNT_NOT_EXIST("A0222", "账号不存在!"),
+    /**
+     * 用户被禁用, 请联系管理员
+     */
+    ACCOUNT_DISABLED("A0223", "用户被禁用, 请联系管理员!");
 
     private final String code;
 
