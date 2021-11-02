@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import icu.junyao.classroom.entity.CourseComment;
+import icu.junyao.classroom.entity.User;
 import icu.junyao.classroom.mapper.CourseCommentMapper;
+import icu.junyao.classroom.mapper.UserMapper;
 import icu.junyao.classroom.req.CourseCommentReq;
 import icu.junyao.classroom.req.PageCourseCommentReq;
 import icu.junyao.classroom.res.CourseCommentRes;
@@ -21,6 +23,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -33,6 +37,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CourseCommentServiceImpl extends ServiceImpl<CourseCommentMapper, CourseComment> implements CourseCommentService {
+
+    private final UserMapper userMapper;
+
     @Override
     public PageResult<CourseCommentRes> pageComment(PageCourseCommentReq pageCourseCommentReq) {
         // 构建分页条件, 按时间降序查找当前课程的评论
@@ -48,6 +55,17 @@ public class CourseCommentServiceImpl extends ServiceImpl<CourseCommentMapper, C
         List<CourseCommentRes> courseCommentResList = BeanUtil
                 .copyToList(courseCommentPage.getRecords(), CourseCommentRes.class, CopyOptions.create());
 
+        // 加入用户信息
+        List<String> userIdList = courseCommentResList.stream().map(CourseCommentRes::getUserId)
+                .collect(Collectors.toList());
+        List<User> userList = userMapper.selectBatchIds(userIdList);
+        Map<String, User> userMap = userList.stream().collect(Collectors.toMap(User::getId, u -> u));
+        courseCommentResList.forEach(c -> {
+            User user = userMap.get(c.getUserId());
+            c.setNickname(user.getNickname());
+            c.setAvatar(user.getAvatar());
+        });
+
         return new PageResult<>(courseCommentPage.getTotal(), courseCommentResList);
     }
 
@@ -62,7 +80,7 @@ public class CourseCommentServiceImpl extends ServiceImpl<CourseCommentMapper, C
 
         CourseComment courseComment = new CourseComment();
         BeanUtils.copyProperties(courseCommentReq, courseComment);
-        courseComment.setMemberId(id);
+        courseComment.setUserId(id);
 
         super.save(courseComment);
     }

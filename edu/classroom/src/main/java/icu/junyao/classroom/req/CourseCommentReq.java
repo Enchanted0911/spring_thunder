@@ -18,12 +18,6 @@ public class CourseCommentReq {
     @ApiModelProperty(value = "讲师id")
     private String teacherId;
 
-    @ApiModelProperty(value = "会员昵称")
-    private String nickname;
-
-    @ApiModelProperty(value = "会员头像")
-    private String avatar;
-
     @ApiModelProperty(value = "评论内容")
     @NotBlank(message = "评论不能为空!")
     @Size(max = 100, message = "评论超出最大长度限制!")

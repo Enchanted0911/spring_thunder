@@ -17,13 +17,13 @@ public class CourseCommentRes {
     @ApiModelProperty(value = "讲师id")
     private String teacherId;
 
-    @ApiModelProperty(value = "会员id")
-    private String memberId;
+    @ApiModelProperty(value = "用户id")
+    private String userId;
 
-    @ApiModelProperty(value = "会员昵称")
+    @ApiModelProperty(value = "用户昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "会员头像")
+    @ApiModelProperty(value = "用户头像")
     private String avatar;
 
     @ApiModelProperty(value = "评论内容")
