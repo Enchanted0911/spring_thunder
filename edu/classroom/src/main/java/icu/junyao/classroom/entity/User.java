@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import icu.junyao.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,13 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("t_user")
 @ApiModel(value="User对象", description="会员表")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "会员id")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+public class User extends BaseEntity {
 
     @ApiModelProperty(value = "微信openid")
     private String openid;
@@ -56,19 +52,6 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "是否禁用 1（true）已禁用，  0（false）未禁用")
     private Boolean isDisabled;
-
-    @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
-    private Boolean isDeleted;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createdTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime modifiedTime;
-
-    private String createdBy;
-
-    private String modifiedBy;
 
 
 }

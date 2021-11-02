@@ -55,16 +55,15 @@ public class JwtUtil {
                 .sign(algorithm);
     }
 
-    public Optional<DecodedJWT> validateToken(HttpServletRequest request) {
+    public DecodedJWT validateToken(HttpServletRequest request) {
         String token = request.getHeader(jwtProperties.getHeader()).replace(jwtProperties.getPrefix(), "");
         String key = jwtProperties.getKey();
         Algorithm algorithm = Algorithm.HMAC256(key);
         JWTVerifier validateToken = JWT.require(algorithm).build();
         try {
-            DecodedJWT decodedJwt = validateToken.verify(token);
-            return Optional.of(decodedJwt);
+            return validateToken.verify(token);
         } catch (Exception e) {
-            return Optional.empty();
+            return null;
         }
     }
 }

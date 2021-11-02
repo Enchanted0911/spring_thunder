@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import icu.junyao.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,13 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("t_course_comment")
 @ApiModel(value="CourseComment对象", description="评论")
-public class CourseComment implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "讲师ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+public class CourseComment extends BaseEntity {
 
     @ApiModelProperty(value = "课程id")
     private String courseId;
@@ -47,19 +43,6 @@ public class CourseComment implements Serializable {
 
     @ApiModelProperty(value = "评论内容")
     private String content;
-
-    @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
-    private Integer isDeleted;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createdTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime modifiedTime;
-
-    private String createdBy;
-
-    private String modifiedBy;
 
 
 }

@@ -1,31 +1,17 @@
-package icu.junyao.back.entity;
+package icu.junyao.back.res;
 
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-
-import icu.junyao.common.entity.BaseEntity;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
 
 /**
- * <p>
- * 课程
- * </p>
- *
  * @author johnson
- * @since 2021-10-23
+ * @date 2021-11-02
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("t_course")
-@ApiModel(value="Course对象", description="课程")
-public class Course extends BaseEntity {
+public class CourseRes {
+    private String id;
 
     @ApiModelProperty(value = "课程讲师ID")
     private String teacherId;
@@ -54,11 +40,6 @@ public class Course extends BaseEntity {
     @ApiModelProperty(value = "浏览数量")
     private Long viewCount;
 
-    @ApiModelProperty(value = "乐观锁")
-    private Long version;
-
     @ApiModelProperty(value = "课程状态 Draft未发布  Normal已发布")
     private String status;
-
-
 }

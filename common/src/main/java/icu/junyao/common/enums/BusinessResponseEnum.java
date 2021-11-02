@@ -70,7 +70,15 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 用户被禁用, 请联系管理员
      */
-    ACCOUNT_DISABLED("A0223", "用户被禁用, 请联系管理员!");
+    ACCOUNT_DISABLED("A0223", "用户被禁用, 请联系管理员!"),
+    /**
+     * 该手机号已注册, 忘记密码请联系管理员
+     */
+    MOBILE_EXIST("A0224", "该手机号已注册, 忘记密码请联系管理员"),
+    /**
+     * 该手机号已注册, 忘记密码请联系管理员
+     */
+    TOKEN_ERROR("A0225", "token解析错误");
 
     private final String code;
 

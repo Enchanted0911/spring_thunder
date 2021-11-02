@@ -1,19 +1,10 @@
 package icu.junyao.back.controller;
 
 
-import icu.junyao.back.req.CourseChapterReq;
-import icu.junyao.back.req.PageCourseCommentReq;
-import icu.junyao.back.res.CourseCommentRes;
-import icu.junyao.back.service.CourseCommentService;
-import icu.junyao.common.entity.PageCondition;
-import icu.junyao.common.entity.PageResult;
-import icu.junyao.common.entity.R;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -28,12 +19,6 @@ import javax.validation.Valid;
 @RequestMapping("/course-comment")
 @RequiredArgsConstructor
 public class CourseCommentController {
-    private final CourseCommentService courseCommentService;
 
-    @ApiOperation("获取评论列表")
-    @GetMapping("page")
-    public R<PageResult<CourseCommentRes>> pageComment(@Valid PageCourseCommentReq pageCourseCommentReq) {
-        return R.data(courseCommentService.pageComment(pageCourseCommentReq));
-    }
 }
 
