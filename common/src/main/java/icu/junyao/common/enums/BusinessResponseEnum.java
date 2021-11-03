@@ -78,7 +78,11 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 该手机号已注册, 忘记密码请联系管理员
      */
-    TOKEN_ERROR("A0225", "token解析错误");
+    TOKEN_ERROR("A0225", "token解析错误"),
+    /**
+     * 该手机号已注册, 忘记密码请联系管理员
+     */
+    FILE_CONTENT_EMPTY("A0226", "文件数据为空!");
 
     private final String code;
 
