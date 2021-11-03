@@ -51,6 +51,7 @@
         <bootstrap.version>3.0.3</bootstrap.version>
         <hutool.version>5.7.11</hutool.version>
         <java-jwt.version>3.18.1</java-jwt.version>
+        <easyexcel.version>2.2.10</easyexcel.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -269,6 +270,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>2.5.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
