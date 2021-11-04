@@ -82,7 +82,19 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 该手机号已注册, 忘记密码请联系管理员
      */
-    FILE_CONTENT_EMPTY("A0226", "文件数据为空!");
+    FILE_CONTENT_EMPTY("A0226", "文件数据为空!"),
+    /**
+     * 视频删除失败
+     */
+    VOD_DELETE_ERROR("A0227", "视频删除失败!"),
+    /**
+     * 获取视频凭证失败
+     */
+    FETCH_PLAY_AUTH_ERROR("A0228", "获取视频凭证失败!"),
+    /**
+     * 该教师存在课程, 无法删除!
+     */
+    TEACHER_CANNOT_DELETE("A0229", "该教师存在课程, 无法删除!");
 
     private final String code;
 

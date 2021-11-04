@@ -14,6 +14,10 @@ spring:
     port: 6279
   main:
     allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 3072MB
+      max-request-size: 3072MB
 
 mybatis-plus:
   configuration:
@@ -29,5 +33,11 @@ mybatis-plus:
 jwt:
   key: h9twhcGnjjwIDxCH
   refresh-key: xT5dZLiZUa7Oe4cP
+
+aliyun:
+  vod:
+    file:
+      keyId: LTAI5tDv9y5SMuXmJFm86S4v
+      keySecert: EYtrPskQ3gNScwvQRLocCUgQWbD76K
 
 

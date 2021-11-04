@@ -6,18 +6,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.back.constant.ClassroomConstants;
-import icu.junyao.back.entity.Course;
-import icu.junyao.back.entity.CourseChapter;
-import icu.junyao.back.entity.CourseDescription;
-import icu.junyao.back.entity.CourseSubsection;
+import icu.junyao.back.entity.*;
 import icu.junyao.back.mapper.*;
 import icu.junyao.back.req.CourseBaseInfoEditReq;
 import icu.junyao.back.req.CourseBaseInfoReq;
 import icu.junyao.back.req.PageCourseReq;
 import icu.junyao.back.res.*;
 import icu.junyao.back.service.CourseService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.common.entity.PageResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -44,6 +42,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private final CourseDescriptionMapper courseDescriptionMapper;
     private final TeacherMapper teacherMapper;
     private final SubjectMapper subjectMapper;
+    private final CourseCommentMapper courseCommentMapper;
 
     @Override
     public List<CourseChapterRes> gainCourseOutline(String id) {
@@ -175,7 +174,31 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void removeCourse(String id) {
-        
+        // 查出所有课程章节id
+        LambdaQueryWrapper<CourseChapter> chapterLambdaQueryWrapper = Wrappers.lambdaQuery();
+        chapterLambdaQueryWrapper.eq(CourseChapter::getCourseId, id);
+        List<String> courseChapterIdList = courseChapterMapper.selectList(chapterLambdaQueryWrapper)
+                .stream().map(CourseChapter::getId).collect(Collectors.toList());
+
+        // 根据章节id删除章节下的所有小节
+        LambdaQueryWrapper<CourseSubsection> subsectionLambdaQueryWrapper = Wrappers.lambdaQuery();
+        subsectionLambdaQueryWrapper.in(CourseSubsection::getChapterId, courseChapterIdList);
+        courseSubsectionMapper.delete(subsectionLambdaQueryWrapper);
+
+        // 删除所有章节
+        courseChapterMapper.deleteBatchIds(courseChapterIdList);
+
+        // 删除课程描述
+        courseDescriptionMapper.deleteById(id);
+
+        // 删除课程评论
+        LambdaQueryWrapper<CourseComment> courseCommentLambdaQueryWrapper = Wrappers.lambdaQuery();
+        courseCommentLambdaQueryWrapper.eq(CourseComment::getCourseId, id);
+        courseCommentMapper.delete(courseCommentLambdaQueryWrapper);
+
+        // 删除课程
+        super.removeById(id);
     }
 }
