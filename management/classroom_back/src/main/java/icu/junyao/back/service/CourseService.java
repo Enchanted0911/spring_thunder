@@ -83,4 +83,5 @@ public interface CourseService extends IService<Course> {
      * @param id 课程id
      */
     void removeCourse(String id);
+
 }

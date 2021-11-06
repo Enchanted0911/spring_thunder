@@ -22,7 +22,7 @@ public enum BaseResponseEnum implements BaseExceptionAssert {
     /**
      * 用户端错误
      */
-    BIZ_ERROR("A0001", "用户端业务异常"),
+    JUNYAO_ERROR("A0001", "用户端业务异常"),
 
     /**
      * 用户请求参数错误

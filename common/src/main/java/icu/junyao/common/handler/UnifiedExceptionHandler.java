@@ -37,9 +37,9 @@ public class UnifiedExceptionHandler {
     @ExceptionHandler(BaseException.class)
     public R<String> globalException(HttpServletRequest request, BaseException ex) {
 
-        String errorCode = StringUtils.isBlank(ex.getResponseEnum().getCode()) ? ResultCode.BIZ_ERROR.getCode() : ex.getResponseEnum().getCode();
+        String errorCode = StringUtils.isBlank(ex.getResponseEnum().getCode()) ? ResultCode.JUNYAO_ERROR.getCode() : ex.getResponseEnum().getCode();
         log.error("触发请求:[{}]时系统出现异常，异常类型：{}，异常信息：{}", request.getRequestURI(),
-                ResultCode.BIZ_ERROR.getMessage(), ex.getMessage());
+                ResultCode.JUNYAO_ERROR.getMessage(), ex.getMessage());
         return R.fail(errorCode, ex.getMessage());
     }
 

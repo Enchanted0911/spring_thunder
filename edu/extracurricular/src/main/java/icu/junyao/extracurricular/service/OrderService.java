@@ -1,5 +1,6 @@
 package icu.junyao.extracurricular.service;
 
+import icu.junyao.common.entity.R;
 import icu.junyao.extracurricular.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface OrderService extends IService<Order> {
 
+    /**
+     * 查询用户是否购买课程
+     *
+     * @param userId 用户id
+     * @param courseId 课程id
+     * @return true表示购买
+     */
+    Boolean ifBought(String userId, String courseId);
 }

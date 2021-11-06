@@ -139,7 +139,7 @@ public class R<T> implements Serializable {
      * @return R
      */
     public static <T> R<T> fail(String msg) {
-        return new R<>(ResultCode.BIZ_ERROR, msg);
+        return new R<>(ResultCode.JUNYAO_ERROR, msg);
     }
 
 
