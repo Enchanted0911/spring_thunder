@@ -5,12 +5,28 @@ spring:
   application:
     name: service-gateway
   cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
       -  id: service-edu
-         url: lb://service-edu
-         predicates: Path=/service-edu/**
+         uri: lb://service-classroom
+         predicates: Path=/rabbit/classroom/**
+      -  id: service-edu
+         uri: lb://service-extracurricular
+         predicates: Path=/rabbit/extracurricular/**
+      -  id: service-edu
+         uri: lb://service-back
+         predicates: Path=/rabbit/back/**
+      -  id: service-edu
+         uri: lb://service-acl
+         predicates: Path=/rabbit/acl/**
 
 feign:
   sentinel:
     enabled: true
+

@@ -47,7 +47,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private final CourseSubsectionMapper courseSubsectionMapper;
     private final TeacherMapper teacherMapper;
     private final SubjectMapper subjectMapper;
-    public final OrderClient orderClient;
+    private final OrderClient orderClient;
 
     @Override
     public List<CourseRes> list8HotCourse() {

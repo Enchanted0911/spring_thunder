@@ -23,6 +23,6 @@ public interface OrderClient {
      * @return true为已购买
      */
     @ApiOperation("查询课程是否购买")
-    @GetMapping("bought/{userId}/{courseId}")
+    @GetMapping("/rabbit/extracurricular/order/bought/{userId}/{courseId}")
     R<Boolean> ifBought(@PathVariable String userId, @PathVariable String courseId);
 }

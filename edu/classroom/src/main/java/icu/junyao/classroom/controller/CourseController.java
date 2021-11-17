@@ -66,7 +66,7 @@ public class CourseController {
     }
 
     @ApiOperation("获取课程是否已购")
-    @GetMapping("{id}")
+    @GetMapping("bought/{id}")
     public R<Boolean> gainIfBuy(@PathVariable String id, HttpServletRequest request) {
         DecodedJWT decodedJwt = jwtUtil.validateToken(request);
         return R.data(courseService.gainIfBuy(id, decodedJwt));

@@ -1,34 +1,10 @@
-server:
-  port: 3003
 spring:
   application:
     name: service-back
-  datasource:
-    url: jdbc:mysql://localhost:3306/springthunder?serverTimezone=Asia/Shanghai
-    username: root
-    password: Vanessa1020Ives
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  redis:
-    host: 192.168.33.128
-    password: Vanessa1020Ives
-    port: 6279
-  main:
-    allow-bean-definition-overriding: true
   servlet:
     multipart:
       max-file-size: 3072MB
       max-request-size: 3072MB
-
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true  #下划线转驼峰
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl  # 日志打印
-  type-aliases-package: icu.junyao.back.entity.**  # *Mapper.xml里resultType的类型别名
-  mapper-locations: classpath*:icu/junyao/back/mapper/*Mapper.xml
-  global-config:
-    db-config:
-      table-prefix: t_  # 去除表名前缀
-      id-type: assign_id  # id生成策略
 
 jwt:
   key: h9twhcGnjjwIDxCH
@@ -38,6 +14,12 @@ aliyun:
   vod:
     file:
       keyId: LTAI5tDv9y5SMuXmJFm86S4v
-      keySecert: EYtrPskQ3gNScwvQRLocCUgQWbD76K
+      keySecret: EYtrPskQ3gNScwvQRLocCUgQWbD76K
+  oss:
+    file:
+      endpoint: oss-cn-shanghai.aliyuncs.com
+      keyId: LTAI5tDv9y5SMuXmJFm86S4v
+      keySecret: EYtrPskQ3gNScwvQRLocCUgQWbD76K
+      bucketName: junyao-edu
 
 

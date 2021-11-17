@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+      discovery.server-addr: localhost:8848
+      config.prefix: edu
+      password: nacos
+      username: nacos
+
+server:
+  port: 8003
+  servlet:
+    context-path: /rabbit/acl
+
+
