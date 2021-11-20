@@ -135,7 +135,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Integer statisticRegister(String date) {
         LambdaQueryWrapper<User> userLambdaQueryWrapper = Wrappers.lambdaQuery();
-        userLambdaQueryWrapper.eq(User::getCreatedTime, date);
+        userLambdaQueryWrapper.apply("DATE(created_time)={0}", date);
         return super.count(userLambdaQueryWrapper);
     }
 }

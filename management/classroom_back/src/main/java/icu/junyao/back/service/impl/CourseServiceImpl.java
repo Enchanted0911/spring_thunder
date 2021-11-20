@@ -2,6 +2,7 @@ package icu.junyao.back.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -85,8 +86,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         // 构建分页条件
         IPage<Course> coursePage = new Page<>(pageCourseReq.getPage(), pageCourseReq.getPageSize());
         LambdaQueryWrapper<Course> courseLambdaQueryWrapper = Wrappers.lambdaQuery();
-        courseLambdaQueryWrapper.eq(Course::getStatus, pageCourseReq.getStatus())
-                .like(Course::getTitle, pageCourseReq.getTitle())
+        courseLambdaQueryWrapper.eq(StrUtil.isNotEmpty(pageCourseReq.getStatus()), Course::getStatus, pageCourseReq.getStatus())
+                .like(StrUtil.isNotEmpty(pageCourseReq.getTitle()), Course::getTitle, pageCourseReq.getTitle())
                 .orderByDesc(Course::getCreatedTime);
         super.page(coursePage, courseLambdaQueryWrapper);
 

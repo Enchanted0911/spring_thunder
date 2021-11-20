@@ -94,7 +94,11 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 该教师存在课程, 无法删除!
      */
-    TEACHER_CANNOT_DELETE("A0229", "该教师存在课程, 无法删除!");
+    TEACHER_CANNOT_DELETE("A0229", "该教师存在课程, 无法删除!"),
+    /**
+     * 教师不存在!
+     */
+    TEACHER_NOT_EXISTS("A0230", "教师不存在");
 
     private final String code;
 

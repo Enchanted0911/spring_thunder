@@ -2,6 +2,7 @@ package icu.junyao.classroom.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.collection.CollUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -55,6 +57,10 @@ public class CourseCommentServiceImpl extends ServiceImpl<CourseCommentMapper, C
         List<CourseCommentRes> courseCommentResList = BeanUtil
                 .copyToList(courseCommentPage.getRecords(), CourseCommentRes.class, CopyOptions.create());
 
+        // 没有评论直接返回空
+        if (CollUtil.isEmpty(courseCommentResList)) {
+            return new PageResult<>(0L, new ArrayList<>());
+        }
         // 加入用户信息
         List<String> userIdList = courseCommentResList.stream().map(CourseCommentRes::getUserId)
                 .collect(Collectors.toList());

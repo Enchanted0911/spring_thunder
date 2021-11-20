@@ -16,6 +16,7 @@ import icu.junyao.classroom.res.TeacherRes;
 import icu.junyao.classroom.service.TeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.common.entity.PageResult;
+import icu.junyao.common.enums.BusinessResponseEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     @Override
     public TeacherRes teacherDetails(String id) {
         Teacher teacher = super.getById(id);
+        if (teacher == null) {
+            throw BusinessResponseEnum.TEACHER_NOT_EXISTS.newException();
+        }
         TeacherRes teacherRes = new TeacherRes();
         BeanUtils.copyProperties(teacher, teacherRes);
         return teacherRes;

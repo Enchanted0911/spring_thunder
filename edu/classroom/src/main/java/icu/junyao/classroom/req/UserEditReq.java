@@ -21,7 +21,8 @@ public class UserEditReq {
     private String nickname;
 
     @ApiModelProperty(value = "性别 1 女，2 男")
-    @Pattern(regexp = "^(1|2)$", message = "外星人可不用输入性别")
+    @Min(value = 1, message = "性别不能是其他的!")
+    @Max(value = 2, message = "性别不能是其他的")
     private Integer sex;
 
     @ApiModelProperty(value = "年龄")

@@ -8,6 +8,6 @@ public interface OssConstants {
     String TEACHER_AVATAR_PATH = "teacher/avatar/";
     String COURSE_COVER_PATH = "course/cover/";
     String BANNER_PATH = "banner/";
-    String MEMBER_PATH = "banner/";
+    String MEMBER_PATH = "avatar/";
     String DATE_PATTERN = "yyyy/MM/dd";
 }
