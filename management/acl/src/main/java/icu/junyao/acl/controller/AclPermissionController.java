@@ -37,6 +37,13 @@ public class AclPermissionController {
         return R.data(permissionList);
     }
 
+    @ApiOperation("获取所有的权限")
+    @GetMapping("all")
+    public R<List<AclPermissionRes>> gainAllPermission() {
+        List<AclPermissionRes> permissionList = aclPermissionService.gainAllPermission();
+        return R.data(permissionList);
+    }
+
     @ApiOperation("获取当前用户菜单列表")
     @GetMapping("menu")
     public R<List<JSONObject>> gainMenuInfo() {
@@ -46,22 +53,22 @@ public class AclPermissionController {
 
     @ApiOperation("新增菜单")
     @PostMapping
-    public R<Void> saveMenu(@RequestBody @Valid AclPermissionReq aclPermissionAddReq) {
-        aclPermissionService.saveMenu(aclPermissionAddReq);
+    public R<Void> savePermission(@RequestBody @Valid AclPermissionReq aclPermissionAddReq) {
+        aclPermissionService.savePermission(aclPermissionAddReq);
         return R.success();
     }
 
     @ApiOperation("修改菜单")
     @PutMapping
-    public R<Void> updateMenu(@RequestBody @Valid AclPermissionEditReq aclPermissionUpdateReq) {
-        aclPermissionService.updateMenu(aclPermissionUpdateReq);
+    public R<Void> updatePermission(@RequestBody @Valid AclPermissionEditReq aclPermissionUpdateReq) {
+        aclPermissionService.updatePermission(aclPermissionUpdateReq);
         return R.success();
     }
 
     @ApiOperation("递归删除菜单")
     @DeleteMapping("{id}")
-    public R<Void> deleteMenu(@PathVariable String id) {
-        aclPermissionService.deleteMenu(id);
+    public R<Void> deletePermission(@PathVariable String id) {
+        aclPermissionService.deletePermission(id);
         return R.success();
     }
 }

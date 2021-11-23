@@ -35,25 +35,25 @@ public interface AclPermissionService extends IService<AclPermission> {
     List<AclPermissionRes> gainTreePermissionList();
 
     /**
-     * 递归删除菜单
+     * 递归删除权限
      *
-     * @param id 菜单id
+     * @param id 权限id
      */
-    void deleteMenu(String id);
+    void deletePermission(String id);
 
     /**
      * 新增权限
      *
      * @param aclPermissionAddReq {@link AclPermissionReq}
      */
-    void saveMenu(AclPermissionReq aclPermissionAddReq);
+    void savePermission(AclPermissionReq aclPermissionAddReq);
 
     /**
      * 修改权限
      *
      * @param aclPermissionUpdateReq {@link AclPermissionReq}
      */
-    void updateMenu(AclPermissionEditReq aclPermissionUpdateReq);
+    void updatePermission(AclPermissionEditReq aclPermissionUpdateReq);
 
     /**
      * 获取当前用户菜单列表
@@ -61,4 +61,11 @@ public interface AclPermissionService extends IService<AclPermission> {
      * @return 菜单列表
      */
     List<JSONObject> gainMenuList();
+
+    /**
+     * 获取所有的权限
+     *
+     * @return 所有权限的树形列表
+     */
+    List<AclPermissionRes> gainAllPermission();
 }

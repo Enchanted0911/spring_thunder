@@ -76,7 +76,7 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
     }
 
     @Override
-    public void deleteMenu(String id) {
+    public void deletePermission(String id) {
         List<String> idList = new ArrayList<>();
 
         // 子菜单加入删除列表
@@ -89,7 +89,7 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
     }
 
     @Override
-    public void saveMenu(AclPermissionReq aclPermissionAddReq) {
+    public void savePermission(AclPermissionReq aclPermissionAddReq) {
         // 去重, 权限名不能相同
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper.eq(AclPermission::getName, aclPermissionAddReq.getName());
@@ -104,7 +104,7 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
     }
 
     @Override
-    public void updateMenu(AclPermissionEditReq aclPermissionUpdateReq) {
+    public void updatePermission(AclPermissionEditReq aclPermissionUpdateReq) {
         // 去重, 权限名不能相同, 排除自身
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper
@@ -125,6 +125,14 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
         List<AclPermissionRes> aclPermissionList = this.gainTreePermissionList();
 
         return PermissionUtils.buildMenu(aclPermissionList);
+    }
+
+    @Override
+    public List<AclPermissionRes> gainAllPermission() {
+        List<AclPermission> aclPermissionList = super.list();
+        List<AclPermissionRes> aclPermissionResList = BeanUtil.copyToList(aclPermissionList, AclPermissionRes.class, CopyOptions.create());
+
+        return PermissionUtils.buildPermission(aclPermissionResList);
     }
 
     /**

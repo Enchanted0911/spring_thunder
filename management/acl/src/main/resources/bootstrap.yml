@@ -12,7 +12,7 @@ spring:
       username: nacos
 
 server:
-  port: 8003
+  port: 3399
   servlet:
     context-path: /rabbit/acl
 
