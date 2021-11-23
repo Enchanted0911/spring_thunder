@@ -44,7 +44,7 @@ public class AclUserController {
 
     @ApiOperation("新增管理用户")
     @PostMapping
-    public R<Void> info(@RequestBody @Valid AclUserReq aclUserReq) {
+    public R<Void> saveAclUser(@RequestBody @Valid AclUserReq aclUserReq) {
         aclUserReq.setPassword(passwordEncoder.encode(aclUserReq.getPassword()));
         aclUserService.saveAclUser(aclUserReq);
         return R.success();
@@ -65,14 +65,14 @@ public class AclUserController {
 
     @ApiOperation("删除单个管理用户")
     @DeleteMapping("{id}")
-    public R<Void> removeRole(@PathVariable String id) {
+    public R<Void> removeUser(@PathVariable String id) {
         aclUserService.removeUser(id);
         return R.success();
     }
 
     @ApiOperation("删除多个管理用户")
     @DeleteMapping
-    public R<Void> removeBatchRole(@RequestBody List<String> idList) {
+    public R<Void> removeBatchUser(@RequestBody List<String> idList) {
         aclUserService.removeBatchUser(idList);
         return R.success();
     }

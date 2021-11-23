@@ -1,11 +1,16 @@
 package icu.junyao.back.controller;
 
 
+import icu.junyao.back.req.StatisticDailyReq;
+import icu.junyao.back.res.StatisticDailyRes;
+import icu.junyao.back.service.StatisticsDailyService;
+import icu.junyao.common.entity.R;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -21,5 +26,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class StatisticsDailyController {
 
+    private final StatisticsDailyService statisticsDailyService;
+
+    @ApiOperation("统计某一天用户注册人数")
+    @PostMapping("register-num/{date}")
+    public R<Void> registerCount(@PathVariable String date) {
+        statisticsDailyService.registerCount(date);
+        return R.success();
+    }
+
+    @ApiOperation("统计某一天用户注册人数")
+    @GetMapping
+    public R<StatisticDailyRes> showData(@Valid StatisticDailyReq statisticDailyReq) {
+        return R.data(statisticsDailyService.showData(statisticDailyReq));
+    }
 }
 

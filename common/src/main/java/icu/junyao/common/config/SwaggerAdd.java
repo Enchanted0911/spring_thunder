@@ -52,7 +52,7 @@ public class SwaggerAdd implements ApiListingScannerPlugin {
                 .requestParameters(parameters)
                 .build();
         List<Operation> operations = Collections.singletonList(usernamePasswordOperation);
-        ApiDescription loginApiDescription = new ApiDescription("login", "/login", "登录接口", "",
+        ApiDescription loginApiDescription = new ApiDescription("login", "/rabbit/acl/login", "登录接口", "",
                 operations, false);
 
         return Collections.singletonList(loginApiDescription);

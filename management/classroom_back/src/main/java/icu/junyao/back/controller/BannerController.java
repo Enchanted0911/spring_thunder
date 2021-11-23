@@ -59,7 +59,7 @@ public class BannerController {
     }
 
     @ApiOperation("修改banner")
-    @PutMapping("page")
+    @PutMapping
     public R<Void> updateBanner(@RequestBody @Valid BannerEditReq bannerEditReq) {
         bannerService.updateBanner(bannerEditReq);
         return R.success();

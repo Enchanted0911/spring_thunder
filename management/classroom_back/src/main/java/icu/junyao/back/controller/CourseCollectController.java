@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author johnson
  * @since 2021-10-23
  */
-@Api(tags = "课程收集管理")
+@Api(tags = "课程收藏管理")
 @RestController
 @RequestMapping("/course-collect")
 @RequiredArgsConstructor
