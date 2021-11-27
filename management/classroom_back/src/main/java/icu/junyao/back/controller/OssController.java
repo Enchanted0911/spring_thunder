@@ -24,7 +24,7 @@ public class OssController {
     private final OssService ossService;
 
     @ApiOperation("上传教师头像")
-    @PostMapping("/teachAvatar")
+    @PostMapping("/teach-avatar")
     public R<String> uploadOssFileTeachAvatar(@RequestPart("file") MultipartFile file) {
         //获取上传文件  MultipartFile
         //返回上传到oss的路径
@@ -32,7 +32,7 @@ public class OssController {
     }
 
     @ApiOperation("上传课程封面")
-    @PostMapping("/courseCover")
+    @PostMapping("/course-cover")
     public R<String> uploadOssFileCourseCover(@RequestPart("file") MultipartFile file) {
         return R.data(ossService.uploadPicture(file, OssConstants.COURSE_COVER_PATH));
     }
