@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationSuccessHandler(new JwtAuthenticationSuccessHandler(jwtUtil, objectMapper, jwtProperties));
         filter.setAuthenticationFailureHandler(new JwtAuthenticationFailureHandler(objectMapper));
         filter.setAuthenticationManager(super.authenticationManager());
-        filter.setFilterProcessesUrl("/rabbit/acl/login");
+        filter.setFilterProcessesUrl("/login");
         return filter;
     }
 
