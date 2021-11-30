@@ -5,8 +5,8 @@ import icu.junyao.acl.entity.AclUser;
 import icu.junyao.acl.req.AclUserEditReq;
 import icu.junyao.acl.req.AclUserReq;
 import icu.junyao.acl.req.PageUserReq;
+import icu.junyao.acl.req.PasswordReq;
 import icu.junyao.acl.res.AclUserDetailRes;
-import icu.junyao.acl.res.AclUserInfoRes;
 import icu.junyao.acl.service.AclUserService;
 import icu.junyao.common.entity.PageResult;
 import icu.junyao.common.entity.R;
@@ -60,6 +60,20 @@ public class AclUserController {
     @PutMapping
     public R<Void> updateUser(@RequestBody @Valid AclUserEditReq aclUserEditReq) {
         aclUserService.updateUser(aclUserEditReq);
+        return R.success();
+    }
+
+    @ApiOperation("修改个人信息")
+    @PutMapping("self-info")
+    public R<Void> updateUserSelf(@RequestBody @Valid AclUserEditReq aclUserEditReq) {
+        aclUserService.updateUserSelf(aclUserEditReq);
+        return R.success();
+    }
+
+    @ApiOperation("修改密码")
+    @PutMapping("password")
+    public R<Void> updatePassword(@RequestBody @Valid PasswordReq passwordReq) {
+        aclUserService.updatePassword(passwordReq);
         return R.success();
     }
 

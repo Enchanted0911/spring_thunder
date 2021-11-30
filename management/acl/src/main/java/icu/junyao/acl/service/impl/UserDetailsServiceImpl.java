@@ -3,10 +3,9 @@ package icu.junyao.acl.service.impl;
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import icu.junyao.acl.constant.CommonConstant;
 import icu.junyao.acl.entity.AclUser;
+import icu.junyao.acl.mapper.AclUserMapper;
 import icu.junyao.acl.service.AclPermissionService;
-import icu.junyao.acl.service.AclUserService;
 import icu.junyao.security.contant.CacheConstants;
 import icu.junyao.security.entity.JwtUser;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +35,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final AclUserService aclUserService;
+    private final AclUserMapper aclUserMapper;
     private final AclPermissionService aclPermissionService;
     private final CacheManager cacheManager;
 
@@ -51,7 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 缓存没有, 从数据库中查出用户
         LambdaQueryWrapper<AclUser> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(AclUser::getUsername, username);
-        AclUser aclUser = aclUserService.getOne(userLambdaQueryWrapper);
+        AclUser aclUser = aclUserMapper.selectOne(userLambdaQueryWrapper);
         if (aclUser == null) {
             throw new BadCredentialsException("用户名或密码错误");
         }

@@ -1,5 +1,6 @@
 package icu.junyao.acl.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -7,7 +8,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import icu.junyao.acl.constant.CommonConstant;
-import icu.junyao.acl.entity.AclRole;
 import icu.junyao.acl.entity.AclUser;
 import icu.junyao.acl.entity.AclUserRole;
 import icu.junyao.acl.mapper.AclUserMapper;
@@ -15,10 +15,12 @@ import icu.junyao.acl.mapper.AclUserRoleMapper;
 import icu.junyao.acl.req.AclUserEditReq;
 import icu.junyao.acl.req.AclUserReq;
 import icu.junyao.acl.req.PageUserReq;
+import icu.junyao.acl.req.PasswordReq;
 import icu.junyao.acl.res.AclUserDetailRes;
 import icu.junyao.acl.service.AclUserService;
 import icu.junyao.common.entity.PageResult;
 import icu.junyao.common.enums.BusinessResponseEnum;
+import icu.junyao.security.util.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +41,7 @@ import java.util.List;
 public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> implements AclUserService {
 
     private final AclUserRoleMapper aclUserRoleMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void saveAclUser(AclUserReq aclUserReq) {
@@ -55,6 +58,10 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         if (StrUtil.isEmpty(existUser.getAvatar())) {
             existUser.setAvatar(CommonConstant.DEFAULT_AVATAR);
         }
+
+        // 密码加密
+        existUser.setPassword(passwordEncoder.encode(existUser.getPassword()));
+
         super.save(existUser);
     }
 
@@ -67,6 +74,12 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         aclUserLambdaQueryWrapper.like(StrUtil.isNotEmpty(pageUserReq.getUsername()), AclUser::getUsername, pageUserReq.getUsername());
 
         super.page(aclUserPage, aclUserLambdaQueryWrapper);
+
+        // 如果删除的是最后的数据导致最后一页没有数据了, 此时需要将页数减一
+        if (CollUtil.isEmpty(aclUserPage.getRecords()) && aclUserPage.getTotal() > 0) {
+            aclUserPage.setCurrent(pageUserReq.getPage() - 1);
+            super.page(aclUserPage);
+        }
         return new PageResult<>(aclUserPage.getTotal(), aclUserPage.getRecords());
     }
 
@@ -83,6 +96,7 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
 
         existUser = new AclUser();
         BeanUtils.copyProperties(aclUserEditReq, existUser);
+
         super.updateById(existUser);
     }
 
@@ -114,5 +128,30 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         AclUserDetailRes aclUserDetailRes = new AclUserDetailRes();
         BeanUtils.copyProperties(aclUser, aclUserDetailRes);
         return aclUserDetailRes;
+    }
+
+    @Override
+    public void updateUserSelf(AclUserEditReq aclUserEditReq) {
+        String id = SecurityUtils.getUserId();
+        aclUserEditReq.setId(id);
+        this.updateUser(aclUserEditReq);
+    }
+
+    @Override
+    public void updatePassword(PasswordReq passwordReq) {
+        String id = SecurityUtils.getUserId();
+        AclUser aclUser = super.getById(id);
+        // 判断旧密码是否正确
+        boolean matches = passwordEncoder.matches(passwordReq.getOldPassword(), aclUser.getPassword());
+        BusinessResponseEnum.PWD_ERROR.assertIsTrue(matches);
+
+        // 旧密码不能和新密码相同
+        boolean flag = passwordReq.getOldPassword().equals(passwordReq.getNewPassword());
+        BusinessResponseEnum.NEW_PWD_EQUALS_OLD.assertIsFalse(flag);
+
+        // 新密码加密
+        aclUser.setPassword(passwordEncoder.encode(passwordReq.getNewPassword()));
+
+        super.updateById(aclUser);
     }
 }

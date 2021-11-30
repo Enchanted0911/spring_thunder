@@ -2,10 +2,7 @@ package icu.junyao.acl.service;
 
 import icu.junyao.acl.entity.AclUser;
 import com.baomidou.mybatisplus.extension.service.IService;
-import icu.junyao.acl.req.AclUserEditReq;
-import icu.junyao.acl.req.AclUserReq;
-import icu.junyao.acl.req.PageRoleReq;
-import icu.junyao.acl.req.PageUserReq;
+import icu.junyao.acl.req.*;
 import icu.junyao.acl.res.AclUserDetailRes;
 import icu.junyao.common.entity.PageResult;
 
@@ -64,4 +61,18 @@ public interface AclUserService extends IService<AclUser> {
      * @return {@link AclUserDetailRes}
      */
     AclUserDetailRes userDetails(String id);
+
+    /**
+     * 修改个人信息
+     *
+     * @param aclUserEditReq {@link AclUserEditReq}
+     */
+    void updateUserSelf(AclUserEditReq aclUserEditReq);
+
+    /**
+     * 修改密码
+     *
+     * @param passwordReq {@link PasswordReq}
+     */
+    void updatePassword(PasswordReq passwordReq);
 }

@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                         .antMatchers("/v2/api-docs", "/swagger-resources",
                                 "/favicon.ico", "/webjars/**", "/doc.html", "/rabbit/acl/login", "/**/export-excel").permitAll().anyRequest().authenticated())
-                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/rabbit/acl/logout", "POST"))
+                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
                         .logoutSuccessHandler(new JwtLogoutSuccessHandler(objectMapper)))
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthorizationFilter(jwtUtil, authenticationManager(), userDetailsService), UsernamePasswordAuthenticationFilter.class)
