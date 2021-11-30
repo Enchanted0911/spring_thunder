@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import icu.junyao.acl.constant.CommonConstant;
 import icu.junyao.acl.entity.AclRole;
 import icu.junyao.acl.entity.AclUser;
 import icu.junyao.acl.entity.AclUserRole;
@@ -51,6 +52,9 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
 
         existUser = new AclUser();
         BeanUtils.copyProperties(aclUserReq, existUser);
+        if (StrUtil.isEmpty(existUser.getAvatar())) {
+            existUser.setAvatar(CommonConstant.DEFAULT_AVATAR);
+        }
         super.save(existUser);
     }
 
