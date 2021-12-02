@@ -66,6 +66,9 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
     public List<AclPermissionRes> gainTreePermissionList() {
         List<String> permissionIdList = gainPermissionIdList(SecurityUtils.getUserId());
 
+        if (CollUtil.isEmpty(permissionIdList)) {
+            return new ArrayList<>();
+        }
         // 权限id集合转换成权限集合
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper.in(AclPermission::getId, permissionIdList);
