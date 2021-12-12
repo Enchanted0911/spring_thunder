@@ -52,6 +52,7 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
         List<Subject> oneSubjectList = super.list(subjectLambdaQueryWrapper);
 
         // 获取所有二级学科
+        subjectLambdaQueryWrapper = Wrappers.lambdaQuery();
         subjectLambdaQueryWrapper.ne(Subject::getParentId, ClassroomConstants.ONE_SUBJECT_CODE);
         List<Subject> twoSubjectList = super.list(subjectLambdaQueryWrapper);
 

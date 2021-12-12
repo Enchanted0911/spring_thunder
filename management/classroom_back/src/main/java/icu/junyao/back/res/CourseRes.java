@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * @author johnson
@@ -42,4 +43,7 @@ public class CourseRes {
 
     @ApiModelProperty(value = "课程状态 Draft未发布  Normal已发布")
     private String status;
+
+    @ApiModelProperty(value = "课程添加时间")
+    private LocalDateTime createdTime;
 }

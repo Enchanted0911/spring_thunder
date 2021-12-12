@@ -43,8 +43,14 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (checkJwtToken(request)) {
-            jwtUtil.validateToken(request)
-                    .ifPresentOrElse(this::setupSpringAuthentication, SecurityContextHolder::clearContext);
+            try {
+                jwtUtil.validateToken(request)
+                        .ifPresentOrElse(this::setupSpringAuthentication, SecurityContextHolder::clearContext);
+            } catch (Exception e) {
+                request.setAttribute("error", e);
+                //将异常分发到/error控制器
+                request.getRequestDispatcher("/error/expire").forward(request, response);
+            }
         }
         chain.doFilter(request, response);
     }

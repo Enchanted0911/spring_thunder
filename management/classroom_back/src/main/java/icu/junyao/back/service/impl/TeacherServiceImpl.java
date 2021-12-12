@@ -70,7 +70,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
                 .eq(pageTeacherReq.getLevel() != null, Teacher::getLevel, pageTeacherReq.getLevel())
                 .like(StrUtil.isNotEmpty(pageTeacherReq.getName()), Teacher::getName, pageTeacherReq.getName())
                 .le(StrUtil.isNotEmpty(pageTeacherReq.getEnd()), Teacher::getCreatedTime, pageTeacherReq.getEnd())
-                .ge(StrUtil.isNotEmpty(pageTeacherReq.getEnd()), Teacher::getCreatedTime, pageTeacherReq.getBegin())
+                .ge(StrUtil.isNotEmpty(pageTeacherReq.getBegin()), Teacher::getCreatedTime, pageTeacherReq.getBegin())
                 .orderByDesc(Teacher::getCreatedTime);
 
         super.page(teacherPage, teacherLambdaQueryWrapper);

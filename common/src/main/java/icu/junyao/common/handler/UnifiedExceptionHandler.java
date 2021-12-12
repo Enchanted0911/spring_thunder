@@ -4,6 +4,7 @@ package icu.junyao.common.handler;
 import icu.junyao.common.entity.R;
 import icu.junyao.common.enums.ResultCode;
 import icu.junyao.common.exception.BaseException;
+import icu.junyao.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;

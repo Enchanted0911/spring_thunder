@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final CacheManager cacheManager;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         // 先从缓存中取用户
         Cache cache = cacheManager.getCache(CacheConstants.USER_DETAILS);
         if (cache != null && cache.get(username) != null) {

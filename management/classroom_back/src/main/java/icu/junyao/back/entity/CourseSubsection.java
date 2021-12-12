@@ -1,5 +1,6 @@
 package icu.junyao.back.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
@@ -45,7 +46,8 @@ public class CourseSubsection extends BaseEntity {
     private Long playCount;
 
     @ApiModelProperty(value = "是否可以试听：0收费 1免费")
-    private Integer isFree;
+    @TableField("is_free")
+    private Boolean ifFree;
 
     @ApiModelProperty(value = "视频时长（秒）")
     private Float duration;

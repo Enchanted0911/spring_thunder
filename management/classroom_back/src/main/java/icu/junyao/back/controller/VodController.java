@@ -7,10 +7,8 @@ import icu.junyao.common.entity.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -33,5 +31,11 @@ public class VodController {
     public R<Void> removeAlyVideo(@PathVariable String id) {
         vodService.removeAlyVideo(id);
         return R.success();
+    }
+
+    @ApiOperation("上传视频")
+    @PostMapping
+    public R<String> uploadAlyVideo(MultipartFile file) {
+        return R.data(vodService.uploadAlyVideo(file));
     }
 }
