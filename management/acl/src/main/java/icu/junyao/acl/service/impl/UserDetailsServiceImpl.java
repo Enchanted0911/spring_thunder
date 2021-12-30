@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import icu.junyao.acl.entity.AclUser;
 import icu.junyao.acl.mapper.AclUserMapper;
 import icu.junyao.acl.service.AclPermissionService;
+import icu.junyao.acl.utils.CatchUtil;
 import icu.junyao.security.contant.CacheConstants;
 import icu.junyao.security.entity.JwtUser;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final AclUserMapper aclUserMapper;
     private final AclPermissionService aclPermissionService;
     private final CacheManager cacheManager;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

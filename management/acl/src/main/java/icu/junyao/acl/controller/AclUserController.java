@@ -42,6 +42,12 @@ public class AclUserController {
         return R.data(aclUserService.userDetails(id));
     }
 
+    @ApiOperation("获取当前用户信息")
+    @GetMapping
+    public R<AclUserDetailRes> currentUserInfo() {
+        return R.data(aclUserService.currentUserInfo());
+    }
+
     @ApiOperation("新增管理用户")
     @PostMapping
     public R<Void> saveAclUser(@RequestBody @Valid AclUserReq aclUserReq) {

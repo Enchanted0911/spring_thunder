@@ -48,4 +48,10 @@ public class OssController {
     public R<String> uploadOssFileMember(@RequestPart("file") MultipartFile file) {
         return R.data(ossService.uploadPicture(file, OssConstants.MEMBER_PATH));
     }
+
+    @ApiOperation("上传管理用户头像")
+    @PostMapping("/acl-user-avatar")
+    public R<String> uploadOssFileAclUserAvatar(@RequestPart("file") MultipartFile file) {
+        return R.data(ossService.uploadPicture(file, OssConstants.ACL_USER_AVATAR));
+    }
 }

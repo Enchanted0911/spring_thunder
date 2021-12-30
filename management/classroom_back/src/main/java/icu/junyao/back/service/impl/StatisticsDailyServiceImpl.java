@@ -15,6 +15,7 @@ import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,6 +54,7 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
         // 若不存在记录
         StatisticsDaily statisticsDaily = new StatisticsDaily();
         statisticsDaily.setRegisterNum(registerCountNum);
+        statisticsDaily.setDateCalculated(date);
 
         super.save(statisticsDaily);
     }
@@ -66,7 +68,7 @@ public class StatisticsDailyServiceImpl extends ServiceImpl<StatisticsDailyMappe
 
         List<StatisticsDaily> statisticsDailyList = super.list(statisticsDailyLambdaQueryWrapper);
 
-        StatisticDailyRes statisticDailyRes = new StatisticDailyRes();
+        StatisticDailyRes statisticDailyRes = new StatisticDailyRes(new ArrayList<>(), new ArrayList<>());
 
         statisticsDailyList.forEach(s -> {
             statisticDailyRes.getDateCalculatedList().add(s.getDateCalculated());

@@ -75,4 +75,11 @@ public interface AclUserService extends IService<AclUser> {
      * @param passwordReq {@link PasswordReq}
      */
     void updatePassword(PasswordReq passwordReq);
+
+    /**
+     * 获取当前用户的信息
+     *
+     * @return {@link AclUserDetailRes}
+     */
+    AclUserDetailRes currentUserInfo();
 }

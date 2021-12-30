@@ -1,6 +1,7 @@
 package icu.junyao.security.filter;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import icu.junyao.common.enums.BusinessResponseEnum;
 import icu.junyao.security.entity.JwtUser;
 import icu.junyao.security.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import java.io.IOException;
 
 /**
  * 授权过滤器
- *
+ * <p>
  * 确保每次请求都先经过此过滤器
  * 关于哪些资源须要保护哪些资源不须要保护的配置我们在继承WebSecurityConfigurerAdapter的类中配置
  *
@@ -33,7 +34,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private final UserDetailsService userDetailsService;
 
 
-    public JwtAuthorizationFilter(JwtUtil jwtUtil, AuthenticationManager authenticationManager,UserDetailsService userDetailsService) {
+    public JwtAuthorizationFilter(JwtUtil jwtUtil, AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
         super(authenticationManager);
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
@@ -42,17 +43,19 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (checkJwtToken(request)) {
-            try {
+        try {
+            if (checkJwtToken(request)) {
                 jwtUtil.validateToken(request)
                         .ifPresentOrElse(this::setupSpringAuthentication, SecurityContextHolder::clearContext);
-            } catch (Exception e) {
-                request.setAttribute("error", e);
-                //将异常分发到/error控制器
-                request.getRequestDispatcher("/error/expire").forward(request, response);
             }
+            chain.doFilter(request, response);
+        } catch (Exception e) {
+            Exception exp = BusinessResponseEnum.LOGIN_EXPIRED.newException();
+            request.setAttribute("error", exp);
+            //将异常分发到/error控制器
+            request.getRequestDispatcher("/error/expire").forward(request, response);
         }
-        chain.doFilter(request, response);
+
     }
 
     /**

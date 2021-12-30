@@ -13,4 +13,5 @@ public class CourseSubsectionRes {
     private String videoSourceId;
     private Boolean ifFree;
     private Integer sort;
+    private String videoOriginalName;
 }

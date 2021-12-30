@@ -35,7 +35,7 @@ public class StatisticsDailyController {
         return R.success();
     }
 
-    @ApiOperation("统计某一天用户注册人数")
+    @ApiOperation("展示数据")
     @GetMapping
     public R<StatisticDailyRes> showData(@Valid StatisticDailyReq statisticDailyReq) {
         return R.data(statisticsDailyService.showData(statisticDailyReq));

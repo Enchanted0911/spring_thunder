@@ -18,8 +18,10 @@ import icu.junyao.acl.req.PageUserReq;
 import icu.junyao.acl.req.PasswordReq;
 import icu.junyao.acl.res.AclUserDetailRes;
 import icu.junyao.acl.service.AclUserService;
+import icu.junyao.acl.utils.CatchUtil;
 import icu.junyao.common.entity.PageResult;
 import icu.junyao.common.enums.BusinessResponseEnum;
+import icu.junyao.security.entity.JwtUser;
 import icu.junyao.security.util.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -42,6 +44,7 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
 
     private final AclUserRoleMapper aclUserRoleMapper;
     private final PasswordEncoder passwordEncoder;
+    private final CatchUtil catchUtil;
 
     @Override
     public void saveAclUser(AclUserReq aclUserReq) {
@@ -97,7 +100,11 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         existUser = new AclUser();
         BeanUtils.copyProperties(aclUserEditReq, existUser);
 
-        super.updateById(existUser);
+        // 更新缓存
+        if (super.updateById(existUser)) {
+            catchUtil.freshAclUserInfo(existUser);
+        }
+
     }
 
     @Override
@@ -152,6 +159,17 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         // 新密码加密
         aclUser.setPassword(passwordEncoder.encode(passwordReq.getNewPassword()));
 
-        super.updateById(aclUser);
+        if (super.updateById(aclUser)) {
+            catchUtil.freshAclUserInfo(aclUser);
+        }
+
+    }
+
+    @Override
+    public AclUserDetailRes currentUserInfo() {
+        JwtUser user = SecurityUtils.getUser();
+        AclUserDetailRes aclUserDetailRes = new AclUserDetailRes();
+        BeanUtils.copyProperties(user, aclUserDetailRes);
+        return aclUserDetailRes;
     }
 }

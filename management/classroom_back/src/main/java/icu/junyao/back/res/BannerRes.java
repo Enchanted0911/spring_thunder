@@ -3,6 +3,8 @@ package icu.junyao.back.res;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * @author johnson
  * @date 2021-10-24
@@ -22,4 +24,6 @@ public class BannerRes {
 
     @ApiModelProperty(value = "排序")
     private Integer sort;
+
+    private LocalDateTime createdTime;
 }

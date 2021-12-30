@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import icu.junyao.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,13 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("t_statistics_daily")
 @ApiModel(value="StatisticsDaily对象", description="网站统计日数据")
-public class StatisticsDaily implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+public class StatisticsDaily extends BaseEntity {
 
     @ApiModelProperty(value = "统计日期")
     private String dateCalculated;
@@ -44,19 +40,5 @@ public class StatisticsDaily implements Serializable {
 
     @ApiModelProperty(value = "每日新增课程数")
     private Integer courseNum;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createdTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime modifiedTime;
-
-    private String createdBy;
-
-    private String modifiedBy;
-
-    @ApiModelProperty(value = "逻辑删除, 0 未删除, 1删除")
-    private Boolean isDeleted;
-
 
 }
