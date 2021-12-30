@@ -34,7 +34,7 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @ApiOperation("获取前四条热门教师")
-    @GetMapping("list")
+    @GetMapping("hot-list")
     public R<List<TeacherRes>> list4HotTeacher() {
         return R.data(teacherService.list4HotTeacher());
     }

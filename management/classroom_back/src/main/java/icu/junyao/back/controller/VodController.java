@@ -38,4 +38,10 @@ public class VodController {
     public R<String> uploadAlyVideo(MultipartFile file) {
         return R.data(vodService.uploadAlyVideo(file));
     }
+
+    @ApiOperation("获取视频播放凭证")
+    @GetMapping("videoSourceId")
+    public R<String> gainPlayAuth(@PathVariable String videoSourceId) {
+        return R.data(vodService.gainPlayAuth(videoSourceId));
+    }
 }

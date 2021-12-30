@@ -76,11 +76,11 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
      */
     MOBILE_EXIST("A0224", "该手机号已注册, 忘记密码请联系管理员"),
     /**
-     * 该手机号已注册, 忘记密码请联系管理员
+     * token解析错误
      */
     TOKEN_ERROR("A0225", "token解析错误"),
     /**
-     * 该手机号已注册, 忘记密码请联系管理员
+     * 文件数据为空!
      */
     FILE_CONTENT_EMPTY("A0226", "文件数据为空!"),
     /**

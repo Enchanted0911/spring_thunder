@@ -145,7 +145,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public Boolean gainIfBuy(String id, DecodedJWT decodedJwt) {
         // 校验解析jwt
         if (decodedJwt == null) {
-            throw BusinessResponseEnum.TOKEN_ERROR.newException();
+            return false;
         }
 
         String userId = decodedJwt.getClaim("id").asString();

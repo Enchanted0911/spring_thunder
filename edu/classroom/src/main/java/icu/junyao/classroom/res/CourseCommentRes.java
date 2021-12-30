@@ -3,6 +3,8 @@ package icu.junyao.classroom.res;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * @author johnson
  * @date 2021-10-24
@@ -28,4 +30,6 @@ public class CourseCommentRes {
 
     @ApiModelProperty(value = "评论内容")
     private String content;
+
+    private LocalDateTime createdTime;
 }

@@ -9,6 +9,7 @@ import icu.junyao.extracurricular.res.BannerRes;
 import icu.junyao.extracurricular.service.BannerService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.List;
 public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> implements BannerService {
 
     @Override
+    @Cacheable(value = "banner",key = "'hotBannerList'")
     public List<BannerRes> gainAllBanner() {
         LambdaQueryWrapper<Banner> bannerLambdaQueryWrapper = Wrappers.lambdaQuery();
         bannerLambdaQueryWrapper.orderByAsc(Banner::getSort).last("limit 5");

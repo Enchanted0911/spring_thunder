@@ -56,6 +56,9 @@ public class JwtUtil {
     }
 
     public DecodedJWT validateToken(HttpServletRequest request) {
+        if (request.getHeader(jwtProperties.getHeader()) == null) {
+            return null;
+        }
         String token = request.getHeader(jwtProperties.getHeader()).replace(jwtProperties.getPrefix(), "");
         String key = jwtProperties.getKey();
         Algorithm algorithm = Algorithm.HMAC256(key);
