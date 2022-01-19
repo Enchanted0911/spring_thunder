@@ -150,7 +150,7 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         AclUser aclUser = super.getById(id);
         // 判断旧密码是否正确
         boolean matches = passwordEncoder.matches(passwordReq.getOldPassword(), aclUser.getPassword());
-        BusinessResponseEnum.PWD_ERROR.assertIsTrue(matches);
+        BusinessResponseEnum.OLD_PWD_ERROR.assertIsTrue(matches);
 
         // 旧密码不能和新密码相同
         boolean flag = passwordReq.getOldPassword().equals(passwordReq.getNewPassword());

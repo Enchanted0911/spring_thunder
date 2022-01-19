@@ -14,7 +14,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BusinessResponseEnum implements BusinessExceptionAssert {
 
-
+    /**
+     * 原始密码错误
+     */
+    OLD_PWD_ERROR("A0209", "原始密码错误!"),
     /**
      * 用户名或密码错误
      */

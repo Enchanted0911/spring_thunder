@@ -129,8 +129,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         // 属性id转name
         Teacher teacher = teacherMapper.selectById(course.getTeacherId());
-        String subjectName = subjectMapper.selectById(course.getSubjectId()).getTitle();
-        String subjectParentName = subjectMapper.selectById(course.getSubjectParentId()).getTitle();
+
+        String subjectName = "未设置";
+        String subjectParentName = "未设置";
+        if (subjectMapper.selectById(course.getSubjectId()) != null) {
+            subjectName = subjectMapper.selectById(course.getSubjectId()).getTitle();
+        }
+
+        if (subjectMapper.selectById(course.getSubjectParentId()) != null) {
+            subjectParentName = subjectMapper.selectById(course.getSubjectParentId()).getTitle();
+        }
 
         courseDetailRes.setSubjectName(subjectName);
         courseDetailRes.setSubjectParentName(subjectParentName);

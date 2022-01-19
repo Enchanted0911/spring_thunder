@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import icu.junyao.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,13 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("t_subject")
 @ApiModel(value="Subject对象", description="课程科目")
-public class Subject implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "课程类别ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+public class Subject extends BaseEntity {
 
     @ApiModelProperty(value = "类别名称")
     private String title;
@@ -38,16 +34,5 @@ public class Subject implements Serializable {
 
     @ApiModelProperty(value = "排序字段")
     private Integer sort;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createdTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime modifiedTime;
-
-    private String createdBy;
-
-    private String modifiedBy;
-
 
 }

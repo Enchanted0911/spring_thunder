@@ -48,7 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .accessDeniedHandler(jwtAccessDeniedHandler))
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                         .antMatchers("/v2/api-docs", "/swagger-resources",
-                                "/favicon.ico", "/webjars/**", "/doc.html", "/rabbit/acl/login", "/**/export-excel", "/error/expire", "/rabbit/acl/error/expire").permitAll().anyRequest().authenticated())
+                                "/favicon.ico", "/webjars/**", "/doc.html", "/rabbit/acl/login"
+                                , "/**/export-excel", "/error/expire", "/rabbit/acl/error/expire"
+                                , "/rabbit/back/vod", "/vod", "/rabbit/back/vod/*"
+                                , "/rabbit/back/vod/**", "/vod/**").permitAll().anyRequest().authenticated())
                 .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
                         .logoutSuccessHandler(new JwtLogoutSuccessHandler(objectMapper)))
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

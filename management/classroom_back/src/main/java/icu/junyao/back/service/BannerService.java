@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * <p>
- * 首页banner表 服务类
+ * 首页banner 服务类
  * </p>
  *
  * @author johnson

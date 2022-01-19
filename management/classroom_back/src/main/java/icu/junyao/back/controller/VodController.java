@@ -40,7 +40,7 @@ public class VodController {
     }
 
     @ApiOperation("获取视频播放凭证")
-    @GetMapping("videoSourceId")
+    @GetMapping("{videoSourceId}")
     public R<String> gainPlayAuth(@PathVariable String videoSourceId) {
         return R.data(vodService.gainPlayAuth(videoSourceId));
     }
