@@ -27,4 +27,7 @@ public class ArticleComment extends BaseEntity {
     @ApiModelProperty(value = "评论内容")
     private String content;
 
+    @ApiModelProperty(value = "用户id")
+    private String userId;
+
 }
