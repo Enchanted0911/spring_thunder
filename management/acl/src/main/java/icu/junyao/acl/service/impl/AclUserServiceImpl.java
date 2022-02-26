@@ -1,5 +1,7 @@
 package icu.junyao.acl.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -17,6 +19,7 @@ import icu.junyao.acl.req.AclUserReq;
 import icu.junyao.acl.req.PageUserReq;
 import icu.junyao.acl.req.PasswordReq;
 import icu.junyao.acl.res.AclUserDetailRes;
+import icu.junyao.acl.res.AclUserRes;
 import icu.junyao.acl.service.AclUserService;
 import icu.junyao.acl.utils.CatchUtil;
 import icu.junyao.common.entity.PageResult;
@@ -171,5 +174,12 @@ public class AclUserServiceImpl extends ServiceImpl<AclUserMapper, AclUser> impl
         AclUserDetailRes aclUserDetailRes = new AclUserDetailRes();
         BeanUtils.copyProperties(user, aclUserDetailRes);
         return aclUserDetailRes;
+    }
+
+    @Override
+    public List<AclUserRes> listUser() {
+        List<AclUser> aclUserList = super.list();
+        return BeanUtil
+                .copyToList(aclUserList, AclUserRes.class, CopyOptions.create());
     }
 }

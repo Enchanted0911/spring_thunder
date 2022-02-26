@@ -95,7 +95,8 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
     public void savePermission(AclPermissionReq aclPermissionAddReq) {
         // 去重, 权限名不能相同
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
-        aclPermissionLambdaQueryWrapper.eq(AclPermission::getName, aclPermissionAddReq.getName());
+        aclPermissionLambdaQueryWrapper.eq(AclPermission::getName, aclPermissionAddReq.getName())
+                .eq(AclPermission::getPid, aclPermissionAddReq.getPid());
         AclPermission one = super.getOne(aclPermissionLambdaQueryWrapper);
         if (one != null) {
             throw BusinessResponseEnum.PERMISSION_NAME_ALREADY_EXISTS.newException();
@@ -112,6 +113,7 @@ public class AclPermissionServiceImpl extends ServiceImpl<AclPermissionMapper, A
         LambdaQueryWrapper<AclPermission> aclPermissionLambdaQueryWrapper = Wrappers.lambdaQuery();
         aclPermissionLambdaQueryWrapper
                 .eq(AclPermission::getName, aclPermissionUpdateReq.getName())
+                .eq(AclPermission::getPid, aclPermissionUpdateReq.getPid())
                 .ne(AclPermission::getId, aclPermissionUpdateReq.getId());
         AclPermission one = super.getOne(aclPermissionLambdaQueryWrapper);
         if (one != null) {

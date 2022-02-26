@@ -4,6 +4,7 @@ import icu.junyao.acl.entity.AclUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import icu.junyao.acl.req.*;
 import icu.junyao.acl.res.AclUserDetailRes;
+import icu.junyao.acl.res.AclUserRes;
 import icu.junyao.common.entity.PageResult;
 
 import java.util.List;
@@ -82,4 +83,11 @@ public interface AclUserService extends IService<AclUser> {
      * @return {@link AclUserDetailRes}
      */
     AclUserDetailRes currentUserInfo();
+
+    /**
+     * 获取用户列表
+     *
+     * @return 所有管理员用户列表
+     */
+    List<AclUserRes> listUser();
 }

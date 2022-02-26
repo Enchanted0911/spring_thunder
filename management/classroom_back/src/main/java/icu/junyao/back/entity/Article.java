@@ -33,4 +33,6 @@ public class Article extends BaseEntity {
     private String subjectId;
 
     private String subjectParentId;
+
+    private String title;
 }

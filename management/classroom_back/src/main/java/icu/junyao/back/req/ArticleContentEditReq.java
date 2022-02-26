@@ -1,16 +1,15 @@
-package icu.junyao.back.res;
+package icu.junyao.back.req;
+
 
 import lombok.Data;
 
 /**
  * @author johnson
- * @date 2022-01-19
+ * @date 2022-02-16
  */
 @Data
-public class ArticleContentRes {
+public class ArticleContentEditReq {
 
     private String id;
-
     private String content;
-
 }

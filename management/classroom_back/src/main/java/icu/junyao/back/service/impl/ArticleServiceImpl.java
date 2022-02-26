@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import icu.junyao.back.client.AclUserClient;
 import icu.junyao.back.entity.Article;
 import icu.junyao.back.entity.ArticleComment;
 import icu.junyao.back.entity.ArticleContent;
@@ -46,28 +47,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private final ArticleContentMapper articleContentMapper;
     private final SubjectMapper subjectMapper;
     private final ArticleCommentMapper articleCommentMapper;
+    private final AclUserClient aclUserClient;
 
     @Override
     public PageResult<ArticleRes> pageArticle(PageArticleReq pageArticleReq) {
 
         IPage<Article> articlePage = new Page<>(pageArticleReq.getPage(), pageArticleReq.getPageSize());
 
-        // 按标题模糊搜索
-        LambdaQueryWrapper<ArticleContent> articleContentLambdaQueryWrapper = Wrappers.lambdaQuery();
-        articleContentLambdaQueryWrapper.like(StrUtil.isNotBlank(pageArticleReq.getTitle())
-                , ArticleContent::getTitle, pageArticleReq.getTitle()).select(ArticleContent::getId);
-
-        // 获取文章id
-        List<String> articleIdList = articleContentMapper.selectList(articleContentLambdaQueryWrapper)
-                .stream().map(ArticleContent::getId).collect(Collectors.toList());
-
         // 按其他条件查找文章
         LambdaQueryWrapper<Article> articleLambdaQueryWrapper = Wrappers.lambdaQuery();
         articleLambdaQueryWrapper.eq(StrUtil.isNotBlank(pageArticleReq.getSubjectId()), Article::getSubjectId, pageArticleReq.getSubjectId())
                 .eq(StrUtil.isNotBlank(pageArticleReq.getSubjectParentId()), Article::getSubjectParentId, pageArticleReq.getSubjectParentId())
-                .in(Article::getId, articleIdList)
-                .orderByDesc(pageArticleReq.getLikesOrder(), Article::getLikesNum)
-                .orderByDesc(pageArticleReq.getCollectsOrder(), Article::getCollectsNum);
+                .eq(StrUtil.isNotBlank(pageArticleReq.getCreatedBy()), Article::getCreatedBy, pageArticleReq.getCreatedBy())
+                .like(StrUtil.isNotBlank(pageArticleReq.getTitle()), Article::getTitle, pageArticleReq.getTitle());
 
         super.page(articlePage, articleLambdaQueryWrapper);
 
@@ -80,6 +72,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                     .eq(Subject::getId, a.getSubjectId())).getTitle());
             articleRes.setSubjectParentName(subjectMapper.selectOne(Wrappers.lambdaQuery(Subject.class)
                     .eq(Subject::getId, a.getSubjectParentId())).getTitle());
+            articleRes.setCreatedBy(aclUserClient.userDetails(a.getCreatedBy()).getData().getUsername());
             articleResList.add(articleRes);
         });
 
@@ -135,6 +128,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = super.getById(id);
         ArticleRes articleRes = new ArticleRes();
         BeanUtils.copyProperties(article, articleRes);
+        articleRes.setCreatedBy(aclUserClient.userDetails(article.getCreatedBy()).getData().getUsername());
         return articleRes;
     }
 }

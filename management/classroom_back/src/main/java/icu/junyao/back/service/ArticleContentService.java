@@ -2,6 +2,7 @@ package icu.junyao.back.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import icu.junyao.back.entity.ArticleContent;
+import icu.junyao.back.req.ArticleContentEditReq;
 import icu.junyao.back.res.ArticleContentRes;
 
 /**
@@ -21,4 +22,11 @@ public interface ArticleContentService extends IService<ArticleContent> {
      * @return 文章内容详情
      */
     ArticleContentRes articleContentDetails(String id);
+
+    /**
+     * 修改文章内容
+     *
+     * @param articleContentEditReq {@link ArticleContentEditReq}
+     */
+    void updateArticleContent(ArticleContentEditReq articleContentEditReq);
 }

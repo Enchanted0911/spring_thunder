@@ -7,6 +7,7 @@ import icu.junyao.acl.req.AclUserReq;
 import icu.junyao.acl.req.PageUserReq;
 import icu.junyao.acl.req.PasswordReq;
 import icu.junyao.acl.res.AclUserDetailRes;
+import icu.junyao.acl.res.AclUserRes;
 import icu.junyao.acl.service.AclUserService;
 import icu.junyao.common.entity.PageResult;
 import icu.junyao.common.entity.R;
@@ -60,6 +61,12 @@ public class AclUserController {
     @GetMapping("page")
     public R<PageResult<AclUser>> pageUser(@Valid PageUserReq pageUserReq) {
         return R.data(aclUserService.pageUser(pageUserReq));
+    }
+
+    @ApiOperation("获取用户列表")
+    @GetMapping("list")
+    public R<List<AclUserRes>> listUser() {
+        return R.data(aclUserService.listUser());
     }
 
     @ApiOperation("修改用户")

@@ -18,8 +18,6 @@ public class PageArticleReq extends PageCondition {
 
     private String subjectParentId;
 
-    private Boolean likesOrder;
-
-    private Boolean collectsOrder;
+    private String createdBy;
 
 }

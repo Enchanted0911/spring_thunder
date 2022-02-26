@@ -32,7 +32,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
-        if(antPathMatcher.match("/rabbit/acl/**", path)) {
+        if(antPathMatcher.match("/rabbit/security/**", path)) {
             List<String> tokenList = request.getHeaders().get("token");
             if(null == tokenList) {
                 ServerHttpResponse response = exchange.getResponse();

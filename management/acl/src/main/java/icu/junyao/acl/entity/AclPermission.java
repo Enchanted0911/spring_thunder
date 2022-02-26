@@ -52,16 +52,4 @@ public class AclPermission extends BaseEntity {
     @ApiModelProperty(value = "状态(0:禁止,1:正常)")
     private Integer status;
 
-//    @ApiModelProperty(value = "层级")
-//    @TableField(exist = false)
-//    private Integer level;
-//
-//    @ApiModelProperty(value = "下级")
-//    @TableField(exist = false)
-//    private List<AclPermission> children;
-//
-//    @ApiModelProperty(value = "是否选中")
-//    @TableField(exist = false)
-//    private boolean selected;
-
 }

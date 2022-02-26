@@ -34,6 +34,8 @@ public class ArticleRes {
 
     private String subjectId;
 
+    private String title;
+
     private String subjectParentId;
 
     private String subjectName;
