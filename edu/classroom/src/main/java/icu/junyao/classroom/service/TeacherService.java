@@ -41,4 +41,11 @@ public interface TeacherService extends IService<Teacher> {
      * @return {@link TeacherRes}
      */
     TeacherRes teacherDetails(String id);
+
+    /**
+     * 获取教师列表
+     *
+     * @return 教师列表
+     */
+    List<TeacherRes> listTeacher();
 }

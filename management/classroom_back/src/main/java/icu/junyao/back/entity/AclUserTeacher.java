@@ -1,4 +1,4 @@
-package icu.junyao.classroom.entity;
+package icu.junyao.back.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import icu.junyao.common.entity.BaseEntity;

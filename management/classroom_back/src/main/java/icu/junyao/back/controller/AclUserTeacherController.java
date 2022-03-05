@@ -1,6 +1,6 @@
-package icu.junyao.classroom.controller;
+package icu.junyao.back.controller;
 
-import icu.junyao.classroom.service.AclUserTeacherService;
+import icu.junyao.back.service.AclUserTeacherService;
 import icu.junyao.common.entity.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

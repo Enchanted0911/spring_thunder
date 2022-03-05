@@ -1,10 +1,10 @@
-package icu.junyao.back.service.impl;
+package icu.junyao.classroom.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import icu.junyao.back.entity.AclUserTeacher;
-import icu.junyao.back.mapper.AclUserTeacherMapper;
-import icu.junyao.back.service.AclUserTeacherService;
+import icu.junyao.classroom.entity.AclUserTeacher;
+import icu.junyao.classroom.mapper.AclUserTeacherMapper;
+import icu.junyao.classroom.service.AclUserTeacherService;
 import org.springframework.stereotype.Service;
 
 

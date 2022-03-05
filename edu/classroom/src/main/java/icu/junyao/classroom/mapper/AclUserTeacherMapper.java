@@ -1,8 +1,8 @@
-package icu.junyao.back.mapper;
+package icu.junyao.classroom.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import icu.junyao.back.entity.AclUserTeacher;
+import icu.junyao.classroom.entity.AclUserTeacher;
 
 /**
  * <p>

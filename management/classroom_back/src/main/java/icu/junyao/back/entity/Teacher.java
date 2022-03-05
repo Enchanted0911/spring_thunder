@@ -44,5 +44,4 @@ public class Teacher extends BaseEntity {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
-
 }

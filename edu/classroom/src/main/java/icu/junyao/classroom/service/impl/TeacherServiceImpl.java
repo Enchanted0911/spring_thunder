@@ -69,4 +69,10 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         BeanUtils.copyProperties(teacher, teacherRes);
         return teacherRes;
     }
+
+    @Override
+    public List<TeacherRes> listTeacher() {
+        return BeanUtil
+                .copyToList(super.list(), TeacherRes.class, CopyOptions.create());
+    }
 }

@@ -1,4 +1,4 @@
-package icu.junyao.back.res;
+package icu.junyao.classroom.res;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

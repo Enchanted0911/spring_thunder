@@ -1,4 +1,4 @@
-package icu.junyao.back.req;
+package icu.junyao.classroom.req;
 
 import icu.junyao.common.entity.PageCondition;
 import lombok.Data;
@@ -18,6 +18,6 @@ public class PageArticleReq extends PageCondition {
 
     private String subjectParentId;
 
-    private String createdBy;
+    private String teacherId;
 
 }

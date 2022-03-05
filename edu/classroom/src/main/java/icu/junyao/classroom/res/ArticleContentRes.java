@@ -1,4 +1,4 @@
-package icu.junyao.back.res;
+package icu.junyao.classroom.res;
 
 import lombok.Data;
 
@@ -8,8 +8,6 @@ import lombok.Data;
  */
 @Data
 public class ArticleContentRes {
-
-    private String id;
 
     private String content;
 

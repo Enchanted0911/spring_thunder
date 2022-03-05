@@ -1,7 +1,5 @@
-package icu.junyao.back.res;
+package icu.junyao.classroom.res;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -33,6 +31,8 @@ public class ArticleRes {
     private String createdBy;
 
     private String subjectId;
+
+    private String teacherName;
 
     private String title;
 

@@ -30,6 +30,9 @@ public class Article extends BaseEntity {
     @ApiModelProperty(value = "评论数")
     private Long commentsNum;
 
-    @ApiModelProperty(value = "文章内容id")
-    private String articleContentId;
+    private String subjectId;
+
+    private String subjectParentId;
+
+    private String title;
 }

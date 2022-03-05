@@ -1,8 +1,8 @@
-package icu.junyao.back.service;
+package icu.junyao.classroom.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import icu.junyao.back.entity.AclUserTeacher;
+import icu.junyao.classroom.entity.AclUserTeacher;
 
 /**
  * <p>

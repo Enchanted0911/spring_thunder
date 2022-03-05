@@ -33,4 +33,6 @@ public class TeacherRes {
     private Integer sort;
 
     private LocalDateTime createdTime;
+
+    private String aclUserId;
 }

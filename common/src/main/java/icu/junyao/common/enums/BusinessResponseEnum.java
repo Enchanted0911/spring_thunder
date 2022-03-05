@@ -101,7 +101,11 @@ public enum BusinessResponseEnum implements BusinessExceptionAssert {
     /**
      * 教师不存在!
      */
-    TEACHER_NOT_EXISTS("A0230", "教师不存在");
+    TEACHER_NOT_EXISTS("A0230", "教师不存在"),
+    /**
+     * 管理员用户已绑定教师!
+     */
+    ACL_USER_ALREADY_BOUND("A0231", "管理员用户已绑定教师");
 
     private final String code;
 

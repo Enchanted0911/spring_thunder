@@ -50,5 +50,11 @@ public class TeacherController {
     public R<TeacherRes> teacherDetails(@PathVariable String id) {
         return R.data(teacherService.teacherDetails(id));
     }
+
+    @ApiOperation("获取教师列表")
+    @GetMapping
+    public R<List<TeacherRes>> listTeacher() {
+        return R.data(teacherService.listTeacher());
+    }
 }
 

@@ -30,4 +30,6 @@ public class TeacherReq {
 
     @ApiModelProperty(value = "排序")
     private Integer sort;
+
+    private String aclUserId;
 }

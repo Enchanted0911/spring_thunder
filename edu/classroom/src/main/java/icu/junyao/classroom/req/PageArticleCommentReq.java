@@ -1,4 +1,4 @@
-package icu.junyao.back.req;
+package icu.junyao.classroom.req;
 
 import icu.junyao.common.entity.PageCondition;
 import lombok.Data;
