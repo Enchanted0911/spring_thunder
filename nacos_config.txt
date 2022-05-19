@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/springthunder?serverTimezone=Asia/Shanghai
+    username: root
+    password: Vanessa1020Ives
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 192.168.33.128
+    password: Vanessa1020Ives
+    port: 6279
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  #出现错误时, 直接抛出异常
+  # mvc:
+  #   throw-exception-if-no-handler-found: true
+  # #不要为我们工程中的资源文件建立映射
+  # resources:
+  #   add-mappings: false
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true  #下划线转驼峰
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl  # 日志打印
+  type-aliases-package: icu.junyao.*.entity.**  # *Mapper.xml里resultType的类型别名
+  mapper-locations: classpath*:icu/junyao/*/mapper/*Mapper.xml
+  global-config:
+    db-config:
+      table-prefix: t_  # 去除表名前缀
+      id-type: assign_id  # id生成策略
+
+feign:
+  sentinel:
+    enabled: true
