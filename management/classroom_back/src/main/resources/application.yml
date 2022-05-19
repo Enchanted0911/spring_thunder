@@ -13,13 +13,17 @@ jwt:
 aliyun:
   vod:
     file:
-      keyId: LTAI5tDv9y5SMuXmJFm86S4v
-      keySecret: EYtrPskQ3gNScwvQRLocCUgQWbD76K
+#      keyId: LTAI5tDv9y5SMuXmJFm86S4v
+      keyId: 0
+#      keySecret: EYtrPskQ3gNScwvQRLocCUgQWbD76K
+      keySecret: 0
   oss:
     file:
       endpoint: oss-cn-shanghai.aliyuncs.com
-      keyId: LTAI5tDv9y5SMuXmJFm86S4v
-      keySecret: EYtrPskQ3gNScwvQRLocCUgQWbD76K
+#      keyId: LTAI5tDv9y5SMuXmJFm86S4v
+      keyId: 1
+#      keySecret: EYtrPskQ3gNScwvQRLocCUgQWbD76K
+      keySecret: 1
       bucketName: junyao-edu
 
 
